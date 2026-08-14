@@ -44,12 +44,12 @@ The key is public by design — it only permits posting to your own form, so it
 is safe in client-side code. Until it is set, the form shows a notice and the
 call/text buttons still work.
 
-### 2. Add your photos
+### 2. Fill the remaining photo slots
 
-See [`public/photos/README.md`](public/photos/README.md). Short version: drop
-files in `public/photos/`, then point `src/lib/photos.ts` at them and write a
-real `alt` for each. Empty slots render a labelled placeholder, so the layout
-never breaks while you are still shooting.
+Two real before/after pairs and the hero are in. Still open: a **landscape**
+hero shot, a portrait for the About section, and an exterior before/after.
+See [`public/photos/README.md`](public/photos/README.md) — it also explains
+when a pair can use the drag-to-compare slider instead of side by side.
 
 ### 3. Replace the placeholder reviews
 

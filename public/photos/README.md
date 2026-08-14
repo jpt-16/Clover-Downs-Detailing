@@ -1,19 +1,43 @@
 # Photos
 
-Drop your real photos in this folder, then point `src/lib/photos.ts` at them.
+Drop image files in this folder, then point `src/lib/photos.ts` at them.
 
-## What to shoot
+## What is in here now
 
-| Slot | What it needs |
+| File | Used for |
 | --- | --- |
-| `heroPhoto` | One wide shot. A dark car, wet paint, low light. Landscape, at least 2000px wide. |
-| `interior` before/after | Same seat or footwell, same angle, same framing. |
-| `exterior` before/after | Same panel or quarter view, same angle, same framing. |
+| `rear-seat-before.jpg` / `rear-seat-after.jpg` | "Rear bench" pair in the gallery |
+| `footwell-before.jpg` / `footwell-after.jpg` | "Driver's area" pair in the gallery |
+| `footwell-after.jpg` | Also the hero, cropped to a letterbox |
 
-The before/after sliders only read well when the two frames line up. Mark
-your spot, shoot the before, do the work, then stand in the same spot again.
+All four were re-encoded to progressive JPEG and stripped of EXIF metadata,
+which removes any GPS coordinates the phone attached.
 
-## Then
+## Still needed
+
+- **A wide hero shot.** A dark car with wet paint in low light, shot
+  **landscape**. The hero crops to a letterbox, so a portrait original loses
+  most of its frame. The current hero is a cropped interior standing in.
+- **A portrait for the About section** — you working on a car, or with the
+  kit. Set `ownerPhoto`.
+- **An exterior before/after pair.** Everything here is interior work.
+
+## Two ways a pair can be shown
+
+Each pair in `beforeAfterPairs` sets a `mode`:
+
+- **`"split"`** — side by side. Works with any framing. This is what the
+  current pairs use, because their before and after were shot from different
+  positions.
+- **`"slider"`** — the two frames stack behind a drag handle, so a visitor
+  wipes between them. Much more striking, but it **only works when the two
+  frames line up**. Different angles read as a glitch rather than a reveal.
+
+To get slider-ready pairs: mark where you are standing, shoot the before, do
+the work, then stand in exactly the same spot and shoot the after. Same
+distance, same angle, same height. Then set `mode: "slider"`.
+
+## Adding a photo
 
 ```ts
 // src/lib/photos.ts
@@ -24,8 +48,10 @@ export const heroPhoto: Photo = {
 };
 ```
 
-Write the `alt` as a literal description of the frame — it is what screen
-readers announce and what Google reads.
+Write `alt` as a literal description of the frame — it is what screen readers
+announce and what Google reads. Any entry left at `src: null` renders a
+labelled placeholder instead of breaking the layout.
 
-Keep files under ~500 KB each; Next.js handles resizing and WebP conversion
-from there.
+Keep files under ~500 KB; Next.js handles resizing and WebP conversion from
+there. Send originals straight off the phone rather than through a messaging
+app, which recompresses them.

@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/Reveal";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { BeforeAfter } from "@/components/BeforeAfter";
+import { BeforeAfterSplit } from "@/components/BeforeAfterSplit";
 import { QuoteForm } from "@/components/QuoteForm";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { heroPhoto, ownerPhoto, beforeAfterPairs } from "@/lib/photos";
@@ -145,13 +146,15 @@ export default function Home() {
       <section id="work" className="border-b border-rule px-6 py-20 sm:px-10 lg:px-14 lg:py-24">
         <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] font-light tracking-[-0.03em]">The before and after</h2>
-          <span className="label">Drag the handle</span>
+          <span className="label">
+            {beforeAfterPairs.some((p) => p.mode === "slider") ? "Drag the handle" : "Our own work"}
+          </span>
         </Reveal>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
           {beforeAfterPairs.map((pair, i) => (
             <Reveal key={pair.id} delay={i * 120}>
-              <BeforeAfter pair={pair} />
+              {pair.mode === "slider" ? <BeforeAfter pair={pair} /> : <BeforeAfterSplit pair={pair} />}
             </Reveal>
           ))}
         </div>
