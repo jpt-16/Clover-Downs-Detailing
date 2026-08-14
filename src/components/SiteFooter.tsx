@@ -57,6 +57,14 @@ export function SiteFooter() {
           <a href={smsHref} className="text-[0.875rem] text-muted transition-colors hover:text-leaf">
             Text us a photo of your car
           </a>
+          {site.email && (
+            <a
+              href={`mailto:${site.email}`}
+              className="text-[0.875rem] break-all text-muted transition-colors hover:text-leaf"
+            >
+              {site.email}
+            </a>
+          )}
           {site.social.map((s) => (
             <a
               key={s.href}

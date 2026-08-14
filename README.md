@@ -86,12 +86,13 @@ Check build status at
 hours you set there flow into the page copy, the footer, the privacy policy,
 and the `AutoDetailing` structured data Google reads.
 
-## Two `TODO`s in `src/lib/site.ts`
+## One `TODO` left in `src/lib/site.ts`
 
 - `url` — set to the real domain once one is connected, so canonical URLs,
   the sitemap, and the share card point at the right place.
-- `email` — set it and the privacy policy will offer it as a contact channel
-  for data requests. Left empty, the policy points people to phone and text.
+
+Register the Web3Forms access key to `cloverdownsdetail@gmail.com`, the same
+address in `site.email`, so quote requests and direct emails land together.
 
 ## Accessibility notes
 

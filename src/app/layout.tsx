@@ -58,6 +58,7 @@ function StructuredData() {
     slogan: site.tagline,
     url: site.url,
     telephone: site.phone.e164,
+    ...(site.email ? { email: site.email } : {}),
     priceRange: "$$",
     paymentAccepted: site.payments.join(", "),
     currenciesAccepted: "USD",

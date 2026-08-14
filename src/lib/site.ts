@@ -20,9 +20,10 @@ export const site = {
     e164: "+15856230256",
   },
 
-  // TODO: set this to the address you want customers to use for privacy
-  // requests. Until it is set the privacy page points people to phone/text.
-  email: "",
+  // Used for privacy requests, the footer, and structured data. This should
+  // also be the address the Web3Forms access key is registered to, so quote
+  // requests land in the same inbox.
+  email: "cloverdownsdetail@gmail.com",
 
   city: "Beverly",
   region: "MA",

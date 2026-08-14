@@ -24,16 +24,10 @@ function Section({ n, title, children }: { n: string; title: string; children: R
 }
 
 export default function PrivacyPage() {
-  const contactLine = site.email ? (
-    <>
-      email{" "}
-      <a href={`mailto:${site.email}`} className="text-leaf underline-offset-4 hover:underline">
-        {site.email}
-      </a>{" "}
-      or call/text{" "}
-    </>
-  ) : (
-    <>call or text </>
+  const phoneLink = (
+    <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
+      {site.phone.display}
+    </a>
   );
 
   return (
@@ -69,9 +63,9 @@ export default function PrivacyPage() {
             the notes field. All of it is information you choose to type in — we don&rsquo;t pull it from anywhere else.
           </p>
           <p>
-            <strong className="font-medium text-bone">When you call or text.</strong> Your phone number, and whatever
-            you tell us about the car and where it&rsquo;s parked. If you text us photos of your vehicle, we keep those
-            photos while we&rsquo;re quoting and scheduling the work.
+            <strong className="font-medium text-bone">When you call, text, or email.</strong> Your phone number or
+            email address, and whatever you tell us about the car and where it&rsquo;s parked. If you send us photos of
+            your vehicle, we keep those photos while we&rsquo;re quoting and scheduling the work.
           </p>
           <p>
             <strong className="font-medium text-bone">When you simply visit the site.</strong> Our host records standard
@@ -185,17 +179,27 @@ export default function PrivacyPage() {
         </Section>
 
         <Section n="VIII" title="Contact us">
-          <p>
-            Questions about this policy, or about anything we hold on you? {contactLine}
-            <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
-              {site.phone.display}
-            </a>
-            . A{" "}
-            <a href={smsHref} className="text-leaf underline-offset-4 hover:underline">
-              text
-            </a>{" "}
-            is fine — you&rsquo;ll reach the owner either way.
-          </p>
+          {site.email ? (
+            <p>
+              Questions about this policy, or about anything we hold on you? Email{" "}
+              <a href={`mailto:${site.email}`} className="break-all text-leaf underline-offset-4 hover:underline">
+                {site.email}
+              </a>
+              , or call {phoneLink}. A{" "}
+              <a href={smsHref} className="text-leaf underline-offset-4 hover:underline">
+                text
+              </a>{" "}
+              is fine too — you&rsquo;ll reach the owner either way.
+            </p>
+          ) : (
+            <p>
+              Questions about this policy, or about anything we hold on you? Call {phoneLink}. A{" "}
+              <a href={smsHref} className="text-leaf underline-offset-4 hover:underline">
+                text
+              </a>{" "}
+              is fine — you&rsquo;ll reach the owner either way.
+            </p>
+          )}
         </Section>
 
         <Section n="IX" title="Changes to this policy">
