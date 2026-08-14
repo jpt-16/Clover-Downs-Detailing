@@ -9,7 +9,7 @@ rules, no rounded corners anywhere.
 
 - **Framework** — Next.js 16 (App Router) + TypeScript
 - **Styling** — Tailwind CSS v4, tokens defined in `src/app/globals.css`
-- **Forms** — Web3Forms
+- **Forms** — FormSubmit (no account, no API key)
 - **Host** — Vercel
 
 ## Running it
@@ -23,35 +23,44 @@ npm run lint
 
 ## The three things you need to finish
 
-### 1. Turn the quote form on
+### 1. Activate the quote form
 
-The form is built and tested but needs an access key before it can deliver.
+The form posts to [FormSubmit](https://formsubmit.co), which needs **no
+account and no API key** — it delivers to the address in `site.email`
+(`cloverdownsdetail@gmail.com`). There is nothing to configure in Vercel.
 
-1. Go to [web3forms.com](https://web3forms.com), enter
-   `cloverdownsdetail@gmail.com`, and copy the access key they email you. It
-   looks like `a1b2c3d4-....`. Leads are delivered to whichever address the
-   key is registered to, so use the same one the site publishes.
-2. In Vercel: **Project → Settings → Environment Variables**, add
+There is exactly one step, and it only happens once:
 
-   ```
-   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY = your-key-here
-   ```
+1. Submit the form on the live site.
+2. FormSubmit emails `cloverdownsdetail@gmail.com` a confirmation link. Click
+   it.
+3. Submit once more. That one arrives as a normal lead, and every submission
+   after it does too.
 
-   with Production, Preview, and Development all ticked.
-3. **Redeploy.** This step is not optional. `NEXT_PUBLIC_` variables are
-   baked into the JavaScript at build time, not read when a visitor loads the
-   page, so deployments built before you added the key will never see it.
-   Either push a commit, or use **Deployments → ⋯ → Redeploy** on the latest
-   one.
-4. Load the site. The grey "form delivery is not configured" notice under the
-   form disappears once the key is live. Send yourself a test submission.
+**Until that link is clicked, submissions are not delivered.** The form still
+reports success on the site — FormSubmit accepts the post either way — so do
+the activation before sending anyone to the page. Check spam for the
+confirmation.
 
-Locally, put the same line in `.env.local` (see `.env.example`) and restart
-`npm run dev`.
+#### Optional: hide the inbox address
 
-The key is public by design — it only permits posting to your own form, so it
-is safe in client-side code. Until it is set, the form shows a notice and the
-call/text buttons still work.
+The email address is currently visible in the page's JavaScript, where
+address scrapers can read it. It is already published in the footer and the
+privacy policy, so this is a small exposure, but FormSubmit can remove it:
+after activating, they give you a random alias for the address. Put it in
+Vercel under **Settings → Environment Variables**:
+
+```
+NEXT_PUBLIC_FORMSUBMIT_ALIAS = your-alias-here
+```
+
+then **redeploy** — `NEXT_PUBLIC_` variables are baked into the JavaScript at
+build time, not read on page load, so an existing deployment will not pick it
+up. The code prefers the alias whenever one is set and falls back to the
+plain address otherwise, so nothing breaks if you skip this.
+
+Locally, the same line goes in `.env.local` (see `.env.example`); restart
+`npm run dev` afterwards.
 
 ### 2. Fill the remaining photo slots
 
@@ -60,10 +69,12 @@ hero shot, a portrait for the About section, and an exterior before/after.
 See [`public/photos/README.md`](public/photos/README.md) — it also explains
 when a pair can use the drag-to-compare slider instead of side by side.
 
-### 3. Replace the placeholder reviews
+### 3. Add reviews when they exist
 
-`TESTIMONIALS` at the top of `src/app/page.tsx`. Two real ones beat six
-invented ones.
+`TESTIMONIALS` at the top of `src/app/page.tsx` is deliberately empty, and the
+whole testimonials block renders nothing while it stays that way — the site
+shows no invented social proof. Add two real entries and the section returns
+on its own.
 
 ## Deploying
 
@@ -100,8 +111,6 @@ and the `AutoDetailing` structured data Google reads.
 - `url` — set to the real domain once one is connected, so canonical URLs,
   the sitemap, and the share card point at the right place.
 
-Register the Web3Forms access key to `cloverdownsdetail@gmail.com`, the same
-address in `site.email`, so quote requests and direct emails land together.
 
 ## Accessibility notes
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { site, telHref, smsHref, WEB3FORMS_KEY } from "@/lib/site";
+import { site, telHref, smsHref, FORMSUBMIT_ENDPOINT } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -22,22 +22,26 @@ export function QuoteForm() {
     const data = Object.fromEntries(new FormData(form));
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           ...data,
-          access_key: WEB3FORMS_KEY,
-          subject: `Quote request — ${data.name || "new customer"} (${data.town || "North Shore"})`,
-          from_name: site.name,
+          // FormSubmit's underscore-prefixed fields configure the email it sends.
+          _subject: `Quote request — ${data.name || "new customer"} (${data.town || "North Shore"})`,
           // Replies from your inbox go straight back to the customer.
-          replyto: data.email,
+          _replyto: data.email,
+          _template: "table",
+          // Their captcha page cannot be completed from an AJAX request.
+          _captcha: "false",
         }),
       });
 
-      const result = (await res.json()) as { success?: boolean; message?: string };
+      // FormSubmit returns success as the string "true", not a boolean.
+      const result = (await res.json()) as { success?: boolean | string; message?: string };
+      const ok = res.ok && (result.success === true || result.success === "true");
 
-      if (res.ok && result.success) {
+      if (ok) {
         setStatus("sent");
         form.reset();
       } else {
@@ -75,8 +79,9 @@ export function QuoteForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate={false}>
-      {/* Web3Forms' built-in spam trap — hidden from people, tempting to bots. */}
-      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      {/* FormSubmit's spam trap — hidden from people, tempting to bots. Any
+          submission that fills it in is silently discarded on their side. */}
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -174,11 +179,10 @@ export function QuoteForm() {
         />
       </div>
 
-      {!WEB3FORMS_KEY && (
+      {!FORMSUBMIT_ENDPOINT && (
         <p role="status" className="border border-rule-strong bg-ink-raised px-4 py-3 text-[0.8125rem] leading-relaxed text-dim">
-          Form delivery is not configured yet — set{" "}
-          <code className="text-leaf">NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY</code> in your Vercel environment variables.
-          Until then, use the call or text buttons.
+          Form delivery is not configured yet — set <code className="text-leaf">email</code> in{" "}
+          <code className="text-leaf">src/lib/site.ts</code>. Until then, use the call or text buttons.
         </p>
       )}
 
@@ -193,7 +197,11 @@ export function QuoteForm() {
       )}
 
       <div className="flex flex-wrap items-center gap-4 pt-1">
-        <button type="submit" disabled={status === "sending"} className="btn-primary px-8 py-4 text-sm disabled:opacity-60">
+        <button
+          type="submit"
+          disabled={status === "sending" || !FORMSUBMIT_ENDPOINT}
+          className="btn-primary px-8 py-4 text-sm disabled:opacity-60"
+        >
           {status === "sending" ? "SENDING…" : "SEND REQUEST"}
         </button>
         <a href={smsHref} className="btn-secondary px-8 py-4 text-sm">

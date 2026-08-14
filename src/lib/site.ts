@@ -20,9 +20,8 @@ export const site = {
     e164: "+15856230256",
   },
 
-  // Used for privacy requests, the footer, and structured data. This should
-  // also be the address the Web3Forms access key is registered to, so quote
-  // requests land in the same inbox.
+  // Used for privacy requests, the footer, structured data, and as the
+  // FormSubmit delivery address — quote requests land in this inbox.
   email: "cloverdownsdetail@gmail.com",
 
   city: "Beverly",
@@ -63,8 +62,25 @@ export const site = {
 export const telHref = `tel:${site.phone.e164}`;
 export const smsHref = `sms:${site.phone.e164}`;
 
-/** Web3Forms access key. Public by design — it only permits posting to your form. */
-export const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+/**
+ * FormSubmit target. Works with no setup at all — posting to the business
+ * email address is enough, and FormSubmit emails a one-time activation link
+ * on the first submission.
+ *
+ * Once activated, FormSubmit issues a random alias for that address. Put it
+ * in NEXT_PUBLIC_FORMSUBMIT_ALIAS and it is used instead, which keeps the
+ * inbox address out of the JavaScript bundle where scrapers can read it.
+ */
+const FORMSUBMIT_ALIAS = process.env.NEXT_PUBLIC_FORMSUBMIT_ALIAS ?? "";
+
+export const FORMSUBMIT_TARGET = (FORMSUBMIT_ALIAS || site.email).trim();
+
+// Interpolated rather than encodeURIComponent'd on purpose: "@" is legal in a
+// URL path segment, and FormSubmit's documented endpoint uses it literally.
+// Percent-encoding it to %40 risks their routing not matching.
+export const FORMSUBMIT_ENDPOINT = FORMSUBMIT_TARGET
+  ? `https://formsubmit.co/ajax/${FORMSUBMIT_TARGET}`
+  : "";
 
 export const services = [
   {

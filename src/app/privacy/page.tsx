@@ -124,7 +124,7 @@ export default function PrivacyPage() {
             <li className="grid grid-cols-[auto_1fr] gap-3">
               <span aria-hidden className="mt-[0.7em] h-px w-3 shrink-0 bg-leaf" />
               <span>
-                <strong className="font-medium text-bone">Web3Forms</strong> — delivers quote-form submissions to our
+                <strong className="font-medium text-bone">FormSubmit</strong> — delivers quote-form submissions to our
                 inbox. Your form details pass through their service on the way to us.
               </span>
             </li>
