@@ -36,6 +36,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/#about" className="transition-colors hover:text-leaf">
+                  About
+                </Link>
+              </li>
+              <li>
                 <Link href="/#quote" className="transition-colors hover:text-leaf">
                   Get a quote
                 </Link>

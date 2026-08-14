@@ -3,13 +3,30 @@ import { PhotoSlot } from "@/components/PhotoSlot";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { QuoteForm } from "@/components/QuoteForm";
 import { site, services, telHref, smsHref } from "@/lib/site";
-import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
+import { heroPhoto, ownerPhoto, beforeAfterPairs } from "@/lib/photos";
 
 const FACTS = [
   { label: "Service", value: "Fully mobile — our water, our power" },
   { label: "Area", value: "Beverly and the towns around it" },
   { label: "Quotes", value: "Free, by phone, text, or form" },
   { label: "Payment", value: site.payments.join(", ") },
+];
+
+// How the business prepared before taking on customer cars. These answer the
+// objection a new detailer has to answer, so keep them concrete.
+const GROUNDWORK = [
+  {
+    label: "Equipment first",
+    copy: "We bought the right tools and products before the first job, not after — extractor, steam, proper mitts and towels.",
+  },
+  {
+    label: "Technique researched",
+    copy: "The process was worked out in advance, so nothing gets improvised on your paint.",
+  },
+  {
+    label: "Owner-operated",
+    copy: "The person who quotes your car is the person who details it. Nobody gets subcontracted your keys.",
+  },
 ];
 
 // Replace these with real reviews as they come in — name and town underneath.
@@ -146,6 +163,60 @@ export default function Home() {
               <footer className="mt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">{t.who}</footer>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      {/* ── About ────────────────────────────────────────────────────── */}
+      <section
+        id="about"
+        className="grid gap-12 border-b border-rule px-6 py-20 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-14 lg:py-24"
+      >
+        <Reveal className="lg:sticky lg:top-28 lg:self-start">
+          <div className="relative aspect-4/5 w-full overflow-hidden">
+            <PhotoSlot photo={ownerPhoto} sizes="(max-width: 1024px) 100vw, 40vw" />
+          </div>
+        </Reveal>
+
+        <div className="flex flex-col">
+          <Reveal className="flex flex-col gap-6">
+            <span className="eyebrow">Who&rsquo;s doing the work</span>
+            <h2 className="text-[clamp(1.75rem,3.4vw,3rem)] leading-[1.02] font-light tracking-[-0.035em]">
+              Cars have always
+              <br />
+              been the thing.
+            </h2>
+            <div className="flex max-w-[58ch] flex-col gap-5 text-[1.0625rem] leading-[1.7] text-muted">
+              <p>
+                I&rsquo;ve had a thing for cars as long as I can remember. Growing up I was the one out in the driveway
+                helping my parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.
+              </p>
+              <p>
+                We&rsquo;ve been detailing for a few months now. We say that plainly, because it&rsquo;s exactly why
+                we&rsquo;ve been so deliberate about how we started — researching products, working out technique, and
+                buying proper equipment before we touched a single customer&rsquo;s car.{" "}
+                <span className="text-bone">We&rsquo;re not learning on your paint.</span>
+              </p>
+              <p>
+                What you get is a job done properly and without wasted time: the same care we&rsquo;d give a car sitting
+                in our own driveway.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-12 flex flex-col">
+            {GROUNDWORK.map((item, i) => (
+              <Reveal
+                key={item.label}
+                delay={i * 90}
+                className={`grid gap-2 border-t border-rule py-6 sm:grid-cols-[13rem_1fr] sm:gap-8 ${
+                  i === GROUNDWORK.length - 1 ? "border-b" : ""
+                }`}
+              >
+                <span className="label pt-1">{item.label}</span>
+                <p className="max-w-[52ch] text-[0.9375rem] leading-relaxed text-muted">{item.copy}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
