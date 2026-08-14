@@ -27,18 +27,27 @@ npm run lint
 
 The form is built and tested but needs an access key before it can deliver.
 
-1. Go to [web3forms.com](https://web3forms.com), enter the email address where
-   you want leads to land, and copy the access key they send you.
+1. Go to [web3forms.com](https://web3forms.com), enter
+   `cloverdownsdetail@gmail.com`, and copy the access key they email you. It
+   looks like `a1b2c3d4-....`. Leads are delivered to whichever address the
+   key is registered to, so use the same one the site publishes.
 2. In Vercel: **Project → Settings → Environment Variables**, add
 
    ```
    NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY = your-key-here
    ```
 
-   for Production, Preview, and Development.
-3. Redeploy.
+   with Production, Preview, and Development all ticked.
+3. **Redeploy.** This step is not optional. `NEXT_PUBLIC_` variables are
+   baked into the JavaScript at build time, not read when a visitor loads the
+   page, so deployments built before you added the key will never see it.
+   Either push a commit, or use **Deployments → ⋯ → Redeploy** on the latest
+   one.
+4. Load the site. The grey "form delivery is not configured" notice under the
+   form disappears once the key is live. Send yourself a test submission.
 
-Locally, put the same line in `.env.local` (see `.env.example`).
+Locally, put the same line in `.env.local` (see `.env.example`) and restart
+`npm run dev`.
 
 The key is public by design — it only permits posting to your own form, so it
 is safe in client-side code. Until it is set, the form shows a notice and the

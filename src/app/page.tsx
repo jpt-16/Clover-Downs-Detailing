@@ -30,11 +30,15 @@ const GROUNDWORK = [
   },
 ];
 
-// Replace these with real reviews as they come in — name and town underneath.
-const TESTIMONIALS = [
-  { quote: "Paste a real review here and I'll set it in place — name and town underneath.", who: "Customer — Beverly" },
-  { quote: "A second one goes here. Two is plenty until the reviews build up.", who: "Customer — Danvers" },
-];
+/**
+ * Real reviews only. The block below renders nothing while this is empty, so
+ * the page never shows invented or placeholder testimonials.
+ *
+ * To switch it on, add entries in this shape:
+ *   { quote: "They got the dog hair out of my back seat.", who: "Sarah M. — Beverly" }
+ * Two is plenty to start.
+ */
+const TESTIMONIALS: { quote: string; who: string }[] = [];
 
 export default function Home() {
   return (
@@ -159,14 +163,16 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-16 grid gap-10 border-t border-rule pt-14 lg:grid-cols-2 lg:gap-14">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.who} as="blockquote" delay={i * 120} className="m-0">
-              <p className="text-[1.25rem] leading-[1.5] font-light sm:text-[1.375rem]">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">{t.who}</footer>
-            </Reveal>
-          ))}
-        </div>
+        {TESTIMONIALS.length > 0 && (
+          <div className="mt-16 grid gap-10 border-t border-rule pt-14 lg:grid-cols-2 lg:gap-14">
+            {TESTIMONIALS.map((t, i) => (
+              <Reveal key={t.who} as="blockquote" delay={i * 120} className="m-0">
+                <p className="text-[1.25rem] leading-[1.5] font-light sm:text-[1.375rem]">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="mt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">{t.who}</footer>
+              </Reveal>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ── About ────────────────────────────────────────────────────── */}
