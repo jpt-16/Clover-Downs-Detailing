@@ -19,11 +19,11 @@ export function SiteFooter() {
           <div>
             <p className="label mb-4">Service area</p>
             <p className="max-w-[34ch] text-[0.875rem] leading-relaxed text-muted">{site.towns.join(" · ")}</p>
+            <p className="label mt-8 mb-4">Payment</p>
+            <p className="max-w-[30ch] text-[0.875rem] leading-relaxed text-muted">{site.payments.join(" · ")}</p>
           </div>
           <div>
-            <p className="label mb-4">Payment</p>
-            <p className="max-w-[30ch] text-[0.875rem] leading-relaxed text-muted">{site.payments.join(" · ")}</p>
-            <p className="label mt-8 mb-4">Site</p>
+            <p className="label mb-4">Site</p>
             <ul className="flex flex-col gap-2.5 text-[0.875rem] text-muted">
               <li>
                 <Link href="/#services" className="transition-colors hover:text-leaf">
@@ -84,16 +84,29 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-rule px-6 py-7 text-[0.6875rem] tracking-[0.2em] text-dim uppercase sm:px-10 lg:px-14">
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule px-6 py-7 text-[0.6875rem] tracking-[0.2em] text-dim uppercase sm:px-10 lg:px-14">
         <span>
           &copy; {new Date().getFullYear()} {site.name}
         </span>
         <span>
           Mobile detailing — {site.city}, {site.region}
         </span>
-        <Link href="/privacy" className="transition-colors hover:text-leaf">
-          Privacy
-        </Link>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          <Link href="/privacy" className="transition-colors hover:text-leaf">
+            Privacy
+          </Link>
+          <span>
+            Made by{" "}
+            <a
+              href={site.credit.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-soft transition-colors hover:text-leaf"
+            >
+              {site.credit.label}
+            </a>
+          </span>
+        </div>
       </div>
     </footer>
   );

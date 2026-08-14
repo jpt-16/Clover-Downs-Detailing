@@ -55,6 +55,9 @@ export const site = {
 
   // Add profile URLs as you create them; the footer renders whatever is here.
   social: [] as { label: string; href: string }[],
+
+  /** Build credit shown in the footer. */
+  credit: { label: "JT Builds Co", href: "https://jtbuildsco.com" },
 } as const;
 
 export const telHref = `tel:${site.phone.e164}`;
