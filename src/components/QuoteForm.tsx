@@ -1,0 +1,213 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { site, telHref, smsHref, WEB3FORMS_KEY } from "@/lib/site";
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+const FIELD =
+  "w-full border border-rule-strong bg-ink-raised px-4 py-3.5 text-[0.9375rem] text-bone placeholder:text-dim/70 transition-colors focus:border-leaf focus:outline-none";
+const LABEL = "block text-[0.6875rem] tracking-[0.2em] text-dim uppercase mb-2";
+
+export function QuoteForm() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setStatus("sending");
+    setError("");
+
+    const data = Object.fromEntries(new FormData(form));
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...data,
+          access_key: WEB3FORMS_KEY,
+          subject: `Quote request — ${data.name || "new customer"} (${data.town || "North Shore"})`,
+          from_name: site.name,
+          // Replies from your inbox go straight back to the customer.
+          replyto: data.email,
+        }),
+      });
+
+      const result = (await res.json()) as { success?: boolean; message?: string };
+
+      if (res.ok && result.success) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+        setError(result.message || "That did not go through.");
+      }
+    } catch {
+      setStatus("error");
+      setError("Could not reach the server. Check your connection and try again.");
+    }
+  }
+
+  if (status === "sent") {
+    return (
+      <div className="border border-leaf/40 bg-leaf/[0.06] p-8 sm:p-10">
+        <span className="eyebrow">Request received</span>
+        <p className="mt-4 text-2xl font-light tracking-[-0.02em] text-bone">Thanks — we&rsquo;ll be in touch.</p>
+        <p className="mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed text-muted">
+          You&rsquo;ll get a price and a time back, usually the same day. If it&rsquo;s urgent, call or text{" "}
+          <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
+            {site.phone.display}
+          </a>
+          .
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus("idle")}
+          className="mt-6 text-[0.75rem] tracking-[0.18em] text-dim uppercase transition-colors hover:text-leaf"
+        >
+          Send another
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate={false}>
+      {/* Web3Forms' built-in spam trap — hidden from people, tempting to bots. */}
+      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="q-name" className={LABEL}>
+            Name
+          </label>
+          <input id="q-name" name="name" type="text" required autoComplete="name" placeholder="Jane Doe" className={FIELD} />
+        </div>
+        <div>
+          <label htmlFor="q-email" className={LABEL}>
+            Email
+          </label>
+          <input
+            id="q-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="jane@example.com"
+            className={FIELD}
+          />
+        </div>
+        <div>
+          <label htmlFor="q-phone" className={LABEL}>
+            Phone
+          </label>
+          <input
+            id="q-phone"
+            name="phone"
+            type="tel"
+            required
+            autoComplete="tel"
+            placeholder="(978) 555-0142"
+            className={FIELD}
+          />
+        </div>
+        <div>
+          <label htmlFor="q-town" className={LABEL}>
+            Town
+          </label>
+          <input
+            id="q-town"
+            name="town"
+            type="text"
+            required
+            list="town-list"
+            placeholder={site.city}
+            className={FIELD}
+          />
+          <datalist id="town-list">
+            {site.towns.map((t) => (
+              <option key={t} value={t} />
+            ))}
+          </datalist>
+        </div>
+        <div>
+          <label htmlFor="q-vehicle" className={LABEL}>
+            Vehicle
+          </label>
+          <input
+            id="q-vehicle"
+            name="vehicle"
+            type="text"
+            required
+            placeholder="2019 Subaru Outback"
+            className={FIELD}
+          />
+        </div>
+        <div>
+          <label htmlFor="q-service" className={LABEL}>
+            Service
+          </label>
+          <select id="q-service" name="service" required defaultValue="" className={`${FIELD} appearance-none`}>
+            <option value="" disabled>
+              Choose one
+            </option>
+            <option value="Full interior detail">Full interior detail</option>
+            <option value="Exterior hand wash">Exterior hand wash</option>
+            <option value="Both, one visit">Both, one visit</option>
+            <option value="Not sure — recommend something">Not sure — recommend something</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="q-notes" className={LABEL}>
+          Anything we should know
+        </label>
+        <textarea
+          id="q-notes"
+          name="notes"
+          rows={4}
+          placeholder="Pet hair in the back, a coffee spill on the passenger seat, sap on the roof — the more you tell us, the tighter the quote."
+          className={`${FIELD} resize-y`}
+        />
+      </div>
+
+      {!WEB3FORMS_KEY && (
+        <p role="status" className="border border-rule-strong bg-ink-raised px-4 py-3 text-[0.8125rem] leading-relaxed text-dim">
+          Form delivery is not configured yet — set{" "}
+          <code className="text-leaf">NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY</code> in your Vercel environment variables.
+          Until then, use the call or text buttons.
+        </p>
+      )}
+
+      {status === "error" && (
+        <p role="alert" className="border border-red-500/40 bg-red-500/[0.07] px-4 py-3 text-[0.875rem] text-red-200">
+          {error} You can always call or text{" "}
+          <a href={telHref} className="underline underline-offset-4">
+            {site.phone.display}
+          </a>
+          .
+        </p>
+      )}
+
+      <div className="flex flex-wrap items-center gap-4 pt-1">
+        <button type="submit" disabled={status === "sending"} className="btn-primary px-8 py-4 text-sm disabled:opacity-60">
+          {status === "sending" ? "SENDING…" : "SEND REQUEST"}
+        </button>
+        <a href={smsHref} className="btn-secondary px-8 py-4 text-sm">
+          TEXT INSTEAD
+        </a>
+      </div>
+
+      <p className="text-[0.75rem] leading-relaxed text-dim">
+        We use what you send here to quote your car and get back to you — nothing else. See our{" "}
+        <a href="/privacy" className="text-leaf underline-offset-4 hover:underline">
+          privacy policy
+        </a>
+        .
+      </p>
+    </form>
+  );
+}

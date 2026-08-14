@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/*
+  Clover Downs Detailing — "Minimal Dark"
+  Ported from the 1B landing concept. Near-black ground, leaf-green accent,
+  hairline rules, light-weight Archivo. Every value below is a token; change
+  it here and it changes everywhere.
+*/
+
+@theme {
+  /* Ground + ink */
+  --color-ink: #0b0c0b; /* page background */
+  --color-ink-raised: #101210; /* cards / inputs sitting on the ground */
+  --color-bone: #f2f3f1; /* primary text */
+  --color-soft: #c3c7c1; /* hero subcopy */
+  --color-muted: #b6bab3; /* body copy */
+  --color-dim: #8e948b; /* small labels — 6.3:1 on ink, AA at 11px */
+
+  /* Accent */
+  --color-leaf: #7cc576;
+  --color-leaf-bright: #a6dda0;
+  --color-leaf-deep: #08120a; /* text on a leaf-filled button */
+
+  /* Rules + edges */
+  --color-rule: #22251f; /* hairline dividers */
+  --color-rule-strong: #2c3029; /* chip outlines */
+  --color-edge: #4a5147; /* secondary button border */
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  /* The concept's signature: tiny, heavily-tracked, uppercase labels */
+  --tracking-label: 0.24em;
+  --tracking-eyebrow: 0.28em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* keep anchor targets clear of the sticky header */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One visible focus treatment for the whole site. */
+  :focus-visible {
+    outline: 2px solid var(--color-leaf);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-leaf);
+    color: var(--color-leaf-deep);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* The tracked uppercase label used throughout the concept. */
+  .label {
+    font-size: 0.6875rem; /* 11px */
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-leaf);
+  }
+
+  /* Square-edged buttons — no radii anywhere in this design. */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: var(--color-leaf);
+    color: var(--color-leaf-deep);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    transition:
+      background-color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-leaf-bright);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid var(--color-edge);
+    color: var(--color-bone);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    transition:
+      border-color 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-leaf);
+    background: color-mix(in srgb, var(--color-leaf) 8%, transparent);
+  }
+
+  .chip {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-dim);
+    border: 1px solid var(--color-rule-strong);
+    padding: 0.4375rem 0.75rem;
+  }
+
+  /* Fine film-grain + vignette over the hero photo. Adds depth on a dark
+     page without introducing another colour. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  /* Scroll-reveal. Elements start hidden only when JS is present to
+     un-hide them, so a no-JS visitor still sees the whole page. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal,
+  .js .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .btn-primary:hover {
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
