@@ -56,6 +56,19 @@ never breaks while you are still shooting.
 `TESTIMONIALS` at the top of `src/app/page.tsx`. Two real ones beat six
 invented ones.
 
+## Deploying
+
+A Vercel project named **clover-downs-detailing** is created and linked to this
+repository, with `claude/clover-downs-detailing-site-emgvag` set as the
+production branch (it was the only branch at the time). Pushing to that branch
+builds and deploys it.
+
+When you merge this into a `main` branch, change the production branch in
+**Project → Settings → Git** so `main` becomes production.
+
+Check build status at
+[vercel.com/jacob-twohig-s-projects/clover-downs-detailing](https://vercel.com/jacob-twohig-s-projects/clover-downs-detailing).
+
 ## Where things live
 
 | I want to change… | Edit |
