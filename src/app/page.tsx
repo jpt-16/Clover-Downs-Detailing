@@ -9,6 +9,7 @@ const FACTS = [
   { label: "Service", value: "Fully mobile — our water, our power" },
   { label: "Area", value: "Beverly and the towns around it" },
   { label: "Quotes", value: "Free, by phone, text, or form" },
+  { label: "Payment", value: site.payments.join(", ") },
 ];
 
 // Replace these with real reviews as they come in — name and town underneath.
@@ -61,12 +62,14 @@ export default function Home() {
       </section>
 
       {/* ── Facts strip ──────────────────────────────────────────────── */}
-      <section className="grid border-b border-rule sm:grid-cols-3">
+      {/* Stacks below lg so each fact keeps a single clean rule; four across
+          on desktop with vertical rules instead. */}
+      <section className="grid border-b border-rule lg:grid-cols-4">
         {FACTS.map((fact, i) => (
           <div
             key={fact.label}
-            className={`px-6 py-9 sm:px-8 lg:px-10 ${
-              i > 0 ? "border-t border-rule sm:border-t-0 sm:border-l" : ""
+            className={`px-6 py-8 sm:px-10 lg:px-8 lg:py-9 ${
+              i > 0 ? "border-t border-rule lg:border-t-0 lg:border-l" : ""
             } ${i === 0 ? "lg:pl-14" : ""} ${i === FACTS.length - 1 ? "lg:pr-14" : ""}`}
           >
             <span className="label mb-2.5 block">{fact.label}</span>
@@ -166,6 +169,10 @@ export default function Home() {
               TEXT US
             </a>
           </div>
+          <p className="max-w-[44ch] border-t border-rule pt-5 text-[0.875rem] leading-relaxed text-dim">
+            <span className="text-bone">Payment on the day.</span> We take {site.payments.slice(0, -1).join(", ")}, or{" "}
+            {site.payments.at(-1)}. No deposit to book.
+          </p>
         </Reveal>
 
         <Reveal delay={120}>

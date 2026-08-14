@@ -59,6 +59,8 @@ function StructuredData() {
     url: site.url,
     telephone: site.phone.e164,
     priceRange: "$$",
+    paymentAccepted: site.payments.join(", "),
+    currenciesAccepted: "USD",
     image: `${site.url}/opengraph-image`,
     address: {
       "@type": "PostalAddress",

@@ -49,6 +49,9 @@ export const site = {
     { days: ["Saturday"], open: "08:00", close: "16:00" },
   ],
 
+  // No card processing — everything here settles person to person on the day.
+  payments: ["Cash", "Check", "Zelle", "Venmo", "Cash App"],
+
   // Add profile URLs as you create them; the footer renders whatever is here.
   social: [] as { label: string; href: string }[],
 } as const;

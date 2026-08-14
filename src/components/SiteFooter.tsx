@@ -21,7 +21,9 @@ export function SiteFooter() {
             <p className="max-w-[34ch] text-[0.875rem] leading-relaxed text-muted">{site.towns.join(" · ")}</p>
           </div>
           <div>
-            <p className="label mb-4">Site</p>
+            <p className="label mb-4">Payment</p>
+            <p className="max-w-[30ch] text-[0.875rem] leading-relaxed text-muted">{site.payments.join(" · ")}</p>
+            <p className="label mt-8 mb-4">Site</p>
             <ul className="flex flex-col gap-2.5 text-[0.875rem] text-muted">
               <li>
                 <Link href="/#services" className="transition-colors hover:text-leaf">
