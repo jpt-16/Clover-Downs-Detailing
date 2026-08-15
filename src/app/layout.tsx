@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -8,7 +8,16 @@ import { site } from "@/lib/site";
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  // 800 is the logo wordmark weight called for by the mark artwork.
+  weight: ["300", "400", "500", "600", "800"],
+  display: "swap",
+});
+
+// Loaded for one thing only: the DETAILING line in the logo lockup.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -102,7 +111,7 @@ function StructuredData() {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} h-full`} suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable} h-full`} suppressHydrationWarning>
       <head>
         {/* Marks the document as scripted before paint, so scroll-reveal
             elements start hidden without a flash — and stay visible if JS

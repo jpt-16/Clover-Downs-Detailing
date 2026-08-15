@@ -20,6 +20,7 @@
   --color-leaf: #7cc576;
   --color-leaf-bright: #a6dda0;
   --color-leaf-deep: #08120a; /* text on a leaf-filled button */
+  --color-leaf-rim: #4f9154; /* inner rim ring of the wheel mark */
 
   /* Rules + edges */
   --color-rule: #22251f; /* hairline dividers */
@@ -27,6 +28,8 @@
   --color-edge: #4a5147; /* secondary button border */
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  /* Used only for the DETAILING lockup line, per the logo spec. */
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
   /* The concept's signature: tiny, heavily-tracked, uppercase labels */
   --tracking-label: 0.24em;

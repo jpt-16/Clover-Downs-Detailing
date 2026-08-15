@@ -1,18 +1,14 @@
 import Link from "next/link";
-import { CloverMark } from "./Logo";
+import { LogoStacked } from "./Logo";
 import { site, telHref, smsHref } from "@/lib/site";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-rule">
       <div className="grid gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-16 lg:px-14">
-        <div className="flex items-start gap-4">
-          <CloverMark className="h-14 w-14 shrink-0" />
-          <div>
-            <p className="text-[0.8125rem] font-semibold tracking-[0.28em] text-bone">CLOVER DOWNS</p>
-            <p className="mt-1.5 text-[0.5625rem] tracking-[0.34em] text-dim uppercase">Detailing</p>
-            <p className="mt-4 text-[0.6875rem] tracking-[0.2em] text-leaf uppercase">{site.tagline}</p>
-          </div>
+        <div className="flex flex-col gap-5">
+          <LogoStacked />
+          <p className="text-[0.6875rem] tracking-[0.2em] text-dim uppercase">{site.tagline}</p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2">

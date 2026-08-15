@@ -5,10 +5,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = `${site.name} — ${site.tagline}`;
 
-const LEAF =
-  "M0,0 C-13,-9 -21,-22 -12,-30 C-6.5,-34.5 -0.5,-31.5 0,-26 C0.5,-31.5 6.5,-34.5 12,-30 C21,-22 13,-9 0,0 Z";
-
-/** Social share card. Mirrors the Minimal Dark palette. */
+/** Social share card. Mirrors the Minimal Dark palette and the wheel mark. */
 export default function Image() {
   return new ImageResponse(
     (
@@ -26,17 +23,20 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <svg width="80" height="80" viewBox="0 0 200 200">
-            <g transform="translate(100 100) scale(2.1)" fill="#7cc576">
-              <path d={LEAF} transform="rotate(45)" />
-              <path d={LEAF} transform="rotate(135)" />
-              <path d={LEAF} transform="rotate(225)" />
-              <path d={LEAF} transform="rotate(315)" />
+          <svg width="88" height="88" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#f2f3f1" strokeWidth="9" />
+            <circle cx="50" cy="50" r="33" fill="none" stroke="#4f9154" strokeWidth="3" />
+            <g fill="#7cc576" transform="translate(50 50) scale(0.62) translate(-50 -50)">
+              <circle cx="38" cy="32" r="18" />
+              <circle cx="62" cy="32" r="18" />
+              <circle cx="38" cy="56" r="18" />
+              <circle cx="62" cy="56" r="18" />
+              <rect x="46" y="62" width="8" height="32" rx="4" transform="rotate(7 50 62)" />
             </g>
           </svg>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 26, fontWeight: 600, letterSpacing: 9 }}>CLOVER DOWNS</span>
-            <span style={{ fontSize: 15, letterSpacing: 11, color: "#8e948b", marginTop: 6 }}>DETAILING</span>
+          <div style={{ display: "flex", flexDirection: "column", borderLeft: "1px solid #2c3029", paddingLeft: 20 }}>
+            <span style={{ fontSize: 28, fontWeight: 800, letterSpacing: 4 }}>CLOVER DOWNS</span>
+            <span style={{ fontSize: 14, letterSpacing: 10, color: "#7cc576", marginTop: 8 }}>DETAILING</span>
           </div>
         </div>
 
