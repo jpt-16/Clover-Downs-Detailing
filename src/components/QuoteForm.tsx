@@ -160,6 +160,7 @@ export function QuoteForm() {
             </option>
             <option value="Full interior detail">Full interior detail</option>
             <option value="Exterior hand wash">Exterior hand wash</option>
+            <option value="Exterior hand wash + wax">Exterior hand wash + wax</option>
             <option value="Both, one visit">Both, one visit</option>
             <option value="Not sure — recommend something">Not sure — recommend something</option>
           </select>

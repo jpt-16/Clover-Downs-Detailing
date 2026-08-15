@@ -110,6 +110,9 @@ function StructuredData() {
       itemListElement: [
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Full interior detail" } },
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Exterior hand wash" } },
+        // Listed separately because it is its own search term and its own
+        // service on the Google Business Profile, not just a step in the wash.
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Hand wax" } },
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Interior and exterior, one visit" } },
       ],
     },
