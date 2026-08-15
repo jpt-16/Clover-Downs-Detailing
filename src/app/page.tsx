@@ -18,7 +18,7 @@ const TRUST = [
   { label: "Free quotes", value: "Ask for a price and a time. No obligation, no deposit to book." },
   { label: "You stay put", value: "We detail it where it's parked. No drop-off, no waiting room." },
   { label: "Pay how you like", value: site.payments.join(", ") + " — on the day, once it's done." },
-  { label: "Both of us, start to finish", value: "The two people who quote your car are the two who detail it." },
+  { label: "One person, start to finish", value: "Whoever quotes your car is the one who details it." },
 ];
 
 /**
@@ -57,7 +57,7 @@ const GROUNDWORK = [
   },
   {
     label: "Owner-operated",
-    copy: "There are two of us and that is the whole company. The pair who quote your car are the pair who detail it — nobody gets subcontracted your keys.",
+    copy: "The person who quotes your car is the person who details it. Nobody gets subcontracted your keys.",
   },
 ];
 
@@ -312,8 +312,7 @@ export default function Home() {
             <div className="flex max-w-[58ch] flex-col gap-5 text-[1.0625rem] leading-[1.7] text-muted">
               <p>
                 I&rsquo;ve had a thing for cars as long as I can remember. Growing up I was the one out in the driveway
-                helping my parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.{" "}
-                <span className="text-bone">There are two of us running it.</span>
+                helping my parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.
               </p>
               <p>
                 We&rsquo;ve been detailing for a few months now. We say that plainly, because it&rsquo;s exactly why
