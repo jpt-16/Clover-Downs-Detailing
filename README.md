@@ -106,10 +106,31 @@ Check build status at
 hours you set there flow into the page copy, the footer, the privacy policy,
 and the `AutoDetailing` structured data Google reads.
 
-## One `TODO` left in `src/lib/site.ts`
+## Connecting a real domain
 
-- `url` — set to the real domain once one is connected, so canonical URLs,
-  the sitemap, and the share card point at the right place.
+Nothing to change in the code. The site's canonical origin resolves itself at
+build time:
+
+1. **`SITE_URL`** if set — use this once a domain is connected.
+2. Otherwise **`VERCEL_PROJECT_PRODUCTION_URL`**, which Vercel injects into
+   every build automatically. This is why the deployed site already has
+   correct canonical tags, sitemap, and share-card links with no setup.
+3. Otherwise `http://localhost:3000`, for `npm run dev`.
+
+So when you point a domain at the project, add one variable in Vercel under
+**Settings → Environment Variables** and redeploy:
+
+```
+SITE_URL = https://yourdomain.com
+```
+
+Setting it explicitly matters because step 2 would otherwise keep advertising
+the `.vercel.app` address as canonical, and Google would index that instead of
+the domain you own.
+
+Note that step 2 always resolves to the *production* domain even when read
+from a preview build — preview URLs must never end up in canonical tags or the
+sitemap, or throwaway deployments get indexed.
 
 
 ## Accessibility notes

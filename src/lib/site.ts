@@ -4,6 +4,31 @@
  * policy, and in the structured data Google reads.
  */
 
+/**
+ * Canonical origin, resolved at build time in this order:
+ *
+ *  1. SITE_URL — set this once a real domain is connected. It wins over
+ *     everything, so the canonical tags keep pointing at the domain you own
+ *     rather than the vercel.app address that also serves the site.
+ *  2. VERCEL_PROJECT_PRODUCTION_URL — injected by Vercel on every deployment
+ *     and always the *production* domain, even when read from a preview
+ *     build. That is what canonical tags and the sitemap want; pointing them
+ *     at a preview URL would have Google index throwaway deployments.
+ *  3. localhost, for `next dev`.
+ *
+ * Only ever read on the server (metadata, sitemap, robots, structured data),
+ * so none of these names need a NEXT_PUBLIC_ prefix.
+ */
+function resolveUrl(): string {
+  const explicit = process.env.SITE_URL?.trim();
+  if (explicit) return explicit.replace(/\/$/, "");
+
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
+
+  return "http://localhost:3000";
+}
+
 export const site = {
   name: "Clover Downs Detailing",
   shortName: "Clover Downs",
@@ -11,8 +36,8 @@ export const site = {
   description:
     "Mobile auto detailing in Beverly, MA and the North Shore. Interior details and exterior hand washes done in your driveway — we bring our own water and power.",
 
-  // TODO: swap to the real domain once it is connected in Vercel.
-  url: "https://clover-downs-detailing.vercel.app",
+  /** See resolveUrl above. Set SITE_URL in Vercel when a domain is connected. */
+  url: resolveUrl(),
 
   phone: {
     display: "(585) 623-0256",
