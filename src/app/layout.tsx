@@ -51,6 +51,12 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: true, follow: true },
+  // Google Search Console, meta-tag method. Google accepts either this or the
+  // googleXXXX.html file in public/ — one is enough, and neither expires as
+  // long as it stays in place. Unset means no tag is emitted at all.
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport = {

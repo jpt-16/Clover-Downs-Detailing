@@ -146,6 +146,50 @@ from a preview build — preview URLs must never end up in canonical tags or the
 sitemap, or throwaway deployments get indexed.
 
 
+## Google Search Console
+
+Search Console is what tells you whether Google has actually indexed the site,
+and which searches are finding it. Verifying ownership is the first step, and
+there are two ways to do it. **Pick one — you do not need both**, and whichever
+you pick has to stay in place permanently or Google un-verifies the site.
+
+### Option A — the HTML file
+
+1. In Search Console, add a **URL prefix** property for the site's address.
+2. Choose **HTML file** verification. Google gives you a file named something
+   like `google1a2b3c4d5e6f.html`.
+3. Drop that file, unrenamed, into **`public/`**. Anything in `public/` is
+   served from the site root, so it lands at `/google1a2b3c4d5e6f.html` —
+   exactly where Google looks.
+4. Commit, push, wait for the deploy to finish, then click **Verify**.
+
+### Option B — the meta tag
+
+Choose **HTML tag** verification instead and Google shows you a `<meta>` tag.
+Copy only the `content="..."` value, not the whole tag, and set it in Vercel
+under **Settings → Environment Variables**:
+
+```
+GOOGLE_SITE_VERIFICATION = the-long-string-google-gave-you
+```
+
+Then **redeploy** — metadata is generated at build time, so an existing
+deployment will not pick it up. Leave the variable unset and no tag is emitted,
+which is the current state.
+
+### After verifying
+
+Submit the sitemap: in Search Console go to **Sitemaps** and enter `sitemap.xml`.
+It is generated automatically by `src/app/sitemap.ts` and already listed in
+`robots.txt`, so there is nothing to build — it just needs to be pointed at.
+
+**One caveat about domains.** A property covers one exact origin. If you verify
+`clover-downs-detailing.vercel.app` and later connect a real domain, that domain
+is a separate property and needs verifying again. If a custom domain is coming
+soon, it is less work to wait and verify that instead. With a real domain you
+also get a third option, **DNS verification**, which covers every subdomain at
+once and is the one worth using long-term.
+
 ## Accessibility notes
 
 Worth preserving if you edit the design:
