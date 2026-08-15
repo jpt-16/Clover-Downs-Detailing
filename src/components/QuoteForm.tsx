@@ -196,18 +196,24 @@ export function QuoteForm() {
         </p>
       )}
 
-      <div className="flex flex-wrap items-center gap-4 pt-1">
+      <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
         <button
           type="submit"
           disabled={status === "sending" || !FORMSUBMIT_ENDPOINT}
-          className="btn-primary px-8 py-4 text-sm disabled:opacity-60"
+          className="btn-primary w-full px-8 py-4 text-sm disabled:opacity-60 sm:w-auto"
         >
-          {status === "sending" ? "SENDING…" : "SEND REQUEST"}
+          {/* Matches the hero button wording — the same promise, kept the
+              whole way down the page. */}
+          {status === "sending" ? "SENDING…" : "GET MY FREE QUOTE"}
         </button>
-        <a href={smsHref} className="btn-secondary px-8 py-4 text-sm">
+        <a href={smsHref} className="btn-secondary w-full px-8 py-4 text-sm sm:w-auto">
           TEXT INSTEAD
         </a>
       </div>
+
+      <p className="text-[0.75rem] tracking-[0.14em] text-dim uppercase">
+        Free · No deposit · No obligation
+      </p>
 
       <p className="text-[0.75rem] leading-relaxed text-dim">
         We use what you send here to quote your car and get back to you — nothing else. See our{" "}

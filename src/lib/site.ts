@@ -77,8 +77,18 @@ export const site = {
   // No card processing — everything here settles person to person on the day.
   payments: ["Cash", "Check", "Zelle", "Venmo", "Cash App"],
 
-  // Add profile URLs as you create them; the footer renders whatever is here.
-  social: [] as { label: string; href: string }[],
+  /**
+   * Social profiles. `handle` is what gets shown next to the glyph; `label`
+   * is the accessible name. Also emitted as schema.org `sameAs`, which is how
+   * Google ties the site and the Instagram account to one business.
+   */
+  social: [
+    {
+      label: "Instagram",
+      handle: "@cloverdowns_detailing",
+      href: "https://www.instagram.com/cloverdowns_detailing/",
+    },
+  ] as { label: string; handle: string; href: string }[],
 
   /** Build credit shown in the footer. */
   credit: { label: "JT Builds Co", href: "https://jtbuildsco.com" },
@@ -107,26 +117,35 @@ export const FORMSUBMIT_ENDPOINT = FORMSUBMIT_TARGET
   ? `https://formsubmit.co/ajax/${FORMSUBMIT_TARGET}`
   : "";
 
+/**
+ * Kept to three, described in one line each. `bestFor` is a decision aid —
+ * most people arrive knowing their car is dirty, not knowing which service
+ * that maps to, and a service list that doesn't answer "which one is me?"
+ * costs bookings.
+ */
 export const services = [
   {
     numeral: "I",
     id: "interior",
     title: "Full interior detail",
-    copy: "Seats and carpets extracted, hard surfaces cleaned down, vents and jambs cleaned out, glass finished streak-free. Pet hair and set-in spills are normal work, not an upcharge surprise.",
+    copy: "Carpets and seats extracted, every hard surface cleaned, glass left streak-free. Pet hair and set-in spills are part of the job, not an upcharge.",
+    bestFor: "Kids, pets, spilled coffee, or a car you're about to sell",
     chips: ["Carpet extraction", "Interior surfaces", "Pet hair", "Odor"],
   },
   {
     numeral: "II",
     id: "exterior",
     title: "Exterior hand wash",
-    copy: "Two buckets, clean mitts, wheels and wells first, bugs and tar off, then dried with plush towels and dressed tires. Nothing abrasive ever touches the paint.",
-    chips: ["Hand wash", "Wheels", "Tar + bugs", "Towel dry"],
+    copy: "Two buckets and clean mitts, wheels and wells first, bugs and tar off, hand-dried and tires dressed. Nothing abrasive touches your paint.",
+    bestFor: "Road salt, pollen, bug season, or a quick refresh",
+    chips: ["Hand wash", "Wheels", "Tar + bugs", "Hand dry"],
   },
   {
     numeral: "III",
     id: "both",
     title: "Both, one visit",
-    copy: "The full reset. Most customers book this once or twice a season and keep it topped up with washes in between.",
+    copy: "Inside and out in a single appointment. The full reset, and the one to pick if it has been a while.",
+    bestFor: "First details and end-of-season resets",
     chips: [],
   },
 ] as const;

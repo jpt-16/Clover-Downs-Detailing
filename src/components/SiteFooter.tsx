@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoStacked } from "./Logo";
+import { InstagramGlyph } from "./Icons";
 import { site, telHref, smsHref } from "@/lib/site";
 
 export function SiteFooter() {
@@ -70,11 +71,13 @@ export function SiteFooter() {
             <a
               key={s.href}
               href={s.href}
-              className="text-[0.875rem] text-muted transition-colors hover:text-leaf"
+              aria-label={`${site.shortName} on ${s.label}`}
+              className="inline-flex items-center gap-2.5 text-[0.875rem] text-muted transition-colors hover:text-leaf"
               rel="noopener noreferrer"
               target="_blank"
             >
-              {s.label}
+              <InstagramGlyph className="h-[1.125rem] w-[1.125rem] shrink-0" />
+              {s.handle}
             </a>
           ))}
         </div>

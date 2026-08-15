@@ -98,9 +98,22 @@ Check build status at
 | Colours, type scale, spacing tokens | `src/app/globals.css` |
 | Photos | `src/lib/photos.ts` |
 | Reviews | `src/app/page.tsx` (`TESTIMONIALS`) |
+| Instagram / social links | `src/lib/site.ts` (`social`) |
+| Trust bar, How it works steps | `src/app/page.tsx` (`TRUST`, `STEPS`) |
 | Privacy policy wording | `src/app/privacy/page.tsx` |
-| Logo artwork | `src/components/Logo.tsx`, `src/app/icon.svg` |
+| Logo artwork | `src/components/Logo.tsx` |
+| Favicons | `src/app/icon.svg`, `favicon.ico`, `apple-icon.png` |
+| Sticky mobile Book Now bar | `src/components/MobileBookBar.tsx` |
 | Social share card | `src/app/opengraph-image.tsx` |
+
+The three favicon files are generated from `src/app/icon.svg` — if the mark
+changes, re-export `favicon.ico` (32px) and `apple-icon.png` (180px) from it
+rather than editing them by hand.
+
+Adding a profile to `social` lights it up in four places at once: the header
+glyph, the mobile menu, the footer, and the Instagram call-to-action under the
+before/after gallery. Remove the entry and all four disappear cleanly rather
+than leaving dead links.
 
 `src/lib/site.ts` is the single source of truth — the phone number, towns, and
 hours you set there flow into the page copy, the footer, the privacy policy,

@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Favicon: the wheel alone, no wordmark. The dark plate keeps the
-       off-white tire legible on light and dark browser chrome alike.
-       Drawn without the inner rim ring, which closes up below ~28px. -->
-  <rect width="100" height="100" fill="#0b0c0b"/>
-  <circle cx="50" cy="50" r="43" fill="none" stroke="#f2f3f1" stroke-width="11"/>
-  <g fill="#7cc576" transform="translate(50 50) scale(0.62) translate(-50 -50)">
-    <circle cx="38" cy="32" r="18"/>
-    <circle cx="62" cy="32" r="18"/>
-    <circle cx="38" cy="56" r="18"/>
-    <circle cx="62" cy="56" r="18"/>
-    <rect x="46" y="62" width="8" height="32" rx="4" transform="rotate(7 50 62)"/>
+  <!-- Favicon: the badge alone, no wordmark. The dark plate keeps it legible
+       on light and dark browser chrome alike. Drawn without the gloss streak
+       and the faint inner ring, both of which are sub-pixel at 16-32px —
+       this matches the artwork's own one-colour variant. -->
+  <circle cx="50" cy="50" r="50" fill="#101210"/>
+  <circle cx="50" cy="50" r="47.2" fill="none" stroke="#4f9154" stroke-width="2.4"/>
+  <g fill="#7cc576" transform="translate(50 47) scale(0.86) translate(-50 -55.5)">
+    <circle cx="36" cy="30" r="15"/>
+    <circle cx="64" cy="30" r="15"/>
+    <circle cx="36" cy="58" r="15"/>
+    <circle cx="64" cy="58" r="15"/>
+    <rect x="36" y="30" width="28" height="28" rx="12"/>
+    <rect x="46" y="64" width="8" height="30" rx="4" transform="rotate(7 50 64)"/>
   </g>
 </svg>

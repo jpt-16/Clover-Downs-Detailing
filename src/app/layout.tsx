@@ -3,6 +3,7 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { MobileBookBar, MobileBookBarSpacer } from "@/components/MobileBookBar";
 import { site } from "@/lib/site";
 
 const archivo = Archivo({
@@ -68,6 +69,8 @@ function StructuredData() {
     url: site.url,
     telephone: site.phone.e164,
     ...(site.email ? { email: site.email } : {}),
+    // Ties the site and the Instagram profile to the same business.
+    ...(site.social.length > 0 ? { sameAs: site.social.map((s) => s.href) } : {}),
     priceRange: "$$",
     paymentAccepted: site.payments.join(", "),
     currenciesAccepted: "USD",
@@ -133,6 +136,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <MobileBookBarSpacer />
+        <MobileBookBar />
       </body>
     </html>
   );
