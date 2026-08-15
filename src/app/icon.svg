@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <!-- Favicon: the badge alone, no wordmark. The dark plate keeps it legible
-       on light and dark browser chrome alike. Drawn without the gloss streak
-       and the faint inner ring, both of which are sub-pixel at 16-32px —
-       this matches the artwork's own one-colour variant. -->
-  <circle cx="50" cy="50" r="50" fill="#101210"/>
+       on light and dark browser chrome alike. Geometry matches Logo.tsx (v4)
+       exactly — favicon.ico and apple-icon.png are exported from this file,
+       so re-export both if it changes. -->
+  <circle cx="50" cy="50" r="50" fill="#0b0c0b"/>
   <circle cx="50" cy="50" r="47.2" fill="none" stroke="#4f9154" stroke-width="2.4"/>
-  <g fill="#7cc576" transform="translate(50 47) scale(0.86) translate(-50 -55.5)">
-    <circle cx="36" cy="30" r="15"/>
-    <circle cx="64" cy="30" r="15"/>
-    <circle cx="36" cy="58" r="15"/>
-    <circle cx="64" cy="58" r="15"/>
-    <rect x="36" y="30" width="28" height="28" rx="12"/>
-    <rect x="46" y="64" width="8" height="30" rx="4" transform="rotate(7 50 64)"/>
+  <g fill="#7cc576" transform="translate(50 50) scale(0.92) translate(-50 -50.5)">
+    <circle cx="35" cy="29" r="16"/>
+    <circle cx="65" cy="29" r="16"/>
+    <circle cx="35" cy="59" r="16"/>
+    <circle cx="65" cy="59" r="16"/>
+    <circle cx="50" cy="44" r="10"/>
+    <rect x="47.5" y="55" width="5" height="33" rx="2.5"/>
   </g>
 </svg>
