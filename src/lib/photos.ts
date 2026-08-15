@@ -29,13 +29,6 @@ export const heroPhoto: Photo = {
   hint: "Wide hero — dark car, wet paint, low light",
 };
 
-/** Portrait for the About section — you at work, or with the kit. */
-export const ownerPhoto: Photo = {
-  src: null,
-  alt: "",
-  hint: "Portrait — you working on a car, or with the kit",
-};
-
 export type BeforeAfterPair = {
   id: string;
   label: string;
@@ -63,7 +56,7 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
     after: {
       src: "/photos/rear-seat-after.jpg",
       alt: "The same rear bench seat after detailing, the leather clean and an even black, with clean floor mats behind it",
-      hint: "After — interior, extracted and steamed",
+      hint: "After — interior, cleaned and extracted",
     },
   },
   {

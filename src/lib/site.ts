@@ -34,7 +34,7 @@ export const site = {
   shortName: "Clover Downs",
   tagline: "Cleaner. Shinier. Better.",
   description:
-    "Mobile auto detailing in Beverly, MA and the North Shore. Interior details and exterior hand washes done in your driveway — we bring our own water and power.",
+    "Mobile auto detailing in Beverly, MA and the North Shore. Interior details and exterior hand washes done in your driveway — free quotes by phone, text, or online.",
 
   /** See resolveUrl above. Set SITE_URL in Vercel when a domain is connected. */
   url: resolveUrl(),
@@ -112,8 +112,8 @@ export const services = [
     numeral: "I",
     id: "interior",
     title: "Full interior detail",
-    copy: "Seats and carpets extracted, hard surfaces steamed, vents and jambs cleaned out, glass finished streak-free. Pet hair and set-in spills are normal work, not an upcharge surprise.",
-    chips: ["Carpet extraction", "Steam", "Pet hair", "Odor"],
+    copy: "Seats and carpets extracted, hard surfaces cleaned down, vents and jambs cleaned out, glass finished streak-free. Pet hair and set-in spills are normal work, not an upcharge surprise.",
+    chips: ["Carpet extraction", "Interior surfaces", "Pet hair", "Odor"],
   },
   {
     numeral: "II",

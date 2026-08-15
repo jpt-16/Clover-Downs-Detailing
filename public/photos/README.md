@@ -18,9 +18,12 @@ which removes any GPS coordinates the phone attached.
 - **A wide hero shot.** A dark car with wet paint in low light, shot
   **landscape**. The hero crops to a letterbox, so a portrait original loses
   most of its frame. The current hero is a cropped interior standing in.
-- **A portrait for the About section** — you working on a car, or with the
-  kit. Set `ownerPhoto`.
 - **An exterior before/after pair.** Everything here is interior work.
+
+The About section is deliberately text-only — there is no owner portrait, and
+a placeholder tile there read as a broken image rather than a held space. If
+a portrait turns up later, add it back as its own left-hand column in the
+About section rather than reusing the heading column.
 
 ## Two ways a pair can be shown
 

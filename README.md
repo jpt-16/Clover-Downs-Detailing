@@ -65,7 +65,7 @@ Locally, the same line goes in `.env.local` (see `.env.example`); restart
 ### 2. Fill the remaining photo slots
 
 Two real before/after pairs and the hero are in. Still open: a **landscape**
-hero shot, a portrait for the About section, and an exterior before/after.
+hero shot and an exterior before/after.
 See [`public/photos/README.md`](public/photos/README.md) — it also explains
 when a pair can use the drag-to-compare slider instead of side by side.
 

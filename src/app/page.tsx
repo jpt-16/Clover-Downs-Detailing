@@ -4,10 +4,10 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { BeforeAfterSplit } from "@/components/BeforeAfterSplit";
 import { QuoteForm } from "@/components/QuoteForm";
 import { site, services, telHref, smsHref } from "@/lib/site";
-import { heroPhoto, ownerPhoto, beforeAfterPairs } from "@/lib/photos";
+import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
 
 const FACTS = [
-  { label: "Service", value: "Fully mobile — our water, our power" },
+  { label: "Service", value: "Mobile — we use your water and power" },
   { label: "Area", value: "Beverly and the towns around it" },
   { label: "Quotes", value: "Free, by phone, text, or form" },
   { label: "Payment", value: site.payments.join(", ") },
@@ -18,7 +18,7 @@ const FACTS = [
 const GROUNDWORK = [
   {
     label: "Equipment first",
-    copy: "We bought the right tools and products before the first job, not after — extractor, steam, proper mitts and towels.",
+    copy: "We bought the right tools and products before the first job, not after — extractor, proper mitts and towels, and products chosen for the surface.",
   },
   {
     label: "Technique researched",
@@ -178,22 +178,22 @@ export default function Home() {
       {/* ── About ────────────────────────────────────────────────────── */}
       <section
         id="about"
-        className="grid gap-12 border-b border-rule px-6 py-20 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-14 lg:py-24"
+        className="grid gap-12 border-b border-rule px-6 py-20 sm:px-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 lg:px-14 lg:py-24"
       >
-        <Reveal className="lg:sticky lg:top-28 lg:self-start">
-          <div className="relative aspect-4/5 w-full overflow-hidden">
-            <PhotoSlot photo={ownerPhoto} sizes="(max-width: 1024px) 100vw, 40vw" />
-          </div>
+        {/* Heading sits in its own sticky column, matching Services. There is
+            no owner portrait to show, and a placeholder tile here read as a
+            missing image rather than a deliberate space. */}
+        <Reveal className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
+          <span className="eyebrow">Who&rsquo;s doing the work</span>
+          <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] font-light tracking-[-0.03em]">
+            Cars have always
+            <br />
+            been the thing.
+          </h2>
         </Reveal>
 
         <div className="flex flex-col">
-          <Reveal className="flex flex-col gap-6">
-            <span className="eyebrow">Who&rsquo;s doing the work</span>
-            <h2 className="text-[clamp(1.75rem,3.4vw,3rem)] leading-[1.02] font-light tracking-[-0.035em]">
-              Cars have always
-              <br />
-              been the thing.
-            </h2>
+          <Reveal>
             <div className="flex max-w-[58ch] flex-col gap-5 text-[1.0625rem] leading-[1.7] text-muted">
               <p>
                 I&rsquo;ve had a thing for cars as long as I can remember. Growing up I was the one out in the driveway
@@ -249,6 +249,14 @@ export default function Home() {
               TEXT US
             </a>
           </div>
+          {/* Stated before booking, not on arrival — a customer who can't
+              reach an outdoor tap needs to know that while they're choosing,
+              not once the van is parked. */}
+          <p className="max-w-[44ch] border-t border-rule pt-5 text-[0.875rem] leading-relaxed text-dim">
+            <span className="text-bone">What we need on site.</span> A spot to work and access to an outdoor water tap
+            and a power outlet. If you&rsquo;re not sure yours will reach, mention it and we&rsquo;ll sort it out
+            beforehand.
+          </p>
           <p className="max-w-[44ch] border-t border-rule pt-5 text-[0.875rem] leading-relaxed text-dim">
             <span className="text-bone">Payment on the day.</span> We take {site.payments.slice(0, -1).join(", ")}, or{" "}
             {site.payments.at(-1)}. No deposit to book.
