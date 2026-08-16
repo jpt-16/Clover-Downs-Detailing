@@ -16,7 +16,7 @@ import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
  */
 const TRUST = [
   { label: "Free quotes", value: "Ask for a price and a time. No obligation, no deposit to book." },
-  { label: "You stay put", value: "We detail it where it's parked. No drop-off, no waiting room." },
+  { label: "You stay put", value: "We detail it in your driveway. No drop-off, no waiting room." },
   { label: "Pay how you like", value: site.payments.join(", ") + " — on the day, once it's done." },
   { label: "One person, start to finish", value: "Whoever quotes your car is the one who details it." },
 ];
@@ -40,7 +40,7 @@ const STEPS = [
   {
     n: "03",
     title: "We come to you",
-    copy: "We work where it's parked and hand it back finished. Pay when you're happy with it.",
+    copy: "We detail it at your place, off your outdoor tap and a power outlet. You get it back finished — pay when you're happy with it.",
   },
 ];
 
@@ -368,9 +368,9 @@ export default function Home() {
               reach an outdoor tap needs to know that while they're choosing,
               not once the van is parked. */}
           <p className="max-w-[44ch] border-t border-rule pt-5 text-[0.875rem] leading-relaxed text-dim">
-            <span className="text-bone">What we need on site.</span> A spot to work and access to an outdoor water tap
-            and a power outlet. If you&rsquo;re not sure yours will reach, mention it and we&rsquo;ll sort it out
-            beforehand.
+            <span className="text-bone">What we need on site.</span> We work at your home, off your outdoor water tap
+            and a power outlet, so we need those to reach the car. If yours won&rsquo;t, or you park on the street or in
+            a shared lot, mention it and we&rsquo;ll sort it out beforehand.
           </p>
           <p className="max-w-[44ch] border-t border-rule pt-5 text-[0.875rem] leading-relaxed text-dim">
             <span className="text-bone">Payment on the day.</span> We take {site.payments.slice(0, -1).join(", ")}, or{" "}
