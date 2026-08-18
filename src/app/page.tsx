@@ -3,6 +3,7 @@ import { PhotoSlot } from "@/components/PhotoSlot";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { BeforeAfterSplit } from "@/components/BeforeAfterSplit";
 import { QuoteForm } from "@/components/QuoteForm";
+import { Testimonials, type Testimonial } from "@/components/Testimonials";
 import { ArrowRight, InstagramGlyph } from "@/components/Icons";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
@@ -62,14 +63,20 @@ const GROUNDWORK = [
 ];
 
 /**
- * Real reviews only. The block below renders nothing while this is empty, so
- * the page never shows invented or placeholder testimonials.
+ * Real reviews only — no invented or placeholder testimonials.
  *
- * To switch it on, add entries in this shape:
- *   { quote: "They got the dog hair out of my back seat.", who: "Sarah M. — Beverly" }
- * Two is plenty to start.
+ * Add new ones to the front of this list so the newest shows first. The
+ * carousel's arrows appear on their own once there is more than one, and the
+ * whole block disappears if the list is emptied.
  */
-const TESTIMONIALS: { quote: string; who: string }[] = [];
+const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "Worked very hard and did a great job and was efficient worth the money",
+    who: "Nathan T.",
+    rating: 5,
+    source: "Google",
+  },
+];
 
 /** Undefined until a profile is added to site.social, so the blocks that use
  *  it drop out rather than rendering a dead link. */
@@ -278,16 +285,7 @@ export default function Home() {
           </Reveal>
         )}
 
-        {TESTIMONIALS.length > 0 && (
-          <div className="mt-16 grid gap-10 border-t border-rule pt-14 lg:grid-cols-2 lg:gap-14">
-            {TESTIMONIALS.map((t, i) => (
-              <Reveal key={t.who} as="blockquote" delay={i * 120} className="m-0">
-                <p className="text-[1.25rem] leading-[1.5] font-light sm:text-[1.375rem]">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">{t.who}</footer>
-              </Reveal>
-            ))}
-          </div>
-        )}
+        <Testimonials items={TESTIMONIALS} />
       </section>
 
       {/* ── About ────────────────────────────────────────────────────── */}

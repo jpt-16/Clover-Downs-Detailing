@@ -69,12 +69,21 @@ hero shot and an exterior before/after.
 See [`public/photos/README.md`](public/photos/README.md) — it also explains
 when a pair can use the drag-to-compare slider instead of side by side.
 
-### 3. Add reviews when they exist
+### 3. Add reviews as they come in
 
-`TESTIMONIALS` at the top of `src/app/page.tsx` is deliberately empty, and the
-whole testimonials block renders nothing while it stays that way — the site
-shows no invented social proof. Add two real entries and the section returns
-on its own.
+`TESTIMONIALS` at the top of `src/app/page.tsx` holds the real ones. Add new
+entries to the front of the list so the newest shows first:
+
+```ts
+{ quote: "…", who: "Nathan T.", rating: 5, source: "Google" }
+```
+
+`rating` and `source` are both optional. The carousel's arrows appear on their
+own once there is more than one review, and the whole block disappears if the
+list is emptied — so the site never shows invented social proof.
+
+Use a first name and last initial rather than a full name, and only quote
+reviews the customer left publicly.
 
 ## Deploying
 
@@ -98,6 +107,7 @@ Check build status at
 | Colours, type scale, spacing tokens | `src/app/globals.css` |
 | Photos | `src/lib/photos.ts` |
 | Reviews | `src/app/page.tsx` (`TESTIMONIALS`) |
+| Review carousel behaviour | `src/components/Testimonials.tsx` |
 | Instagram / social links | `src/lib/site.ts` (`social`) |
 | Trust bar, How it works steps | `src/app/page.tsx` (`TRUST`, `STEPS`) |
 | Privacy policy wording | `src/app/privacy/page.tsx` |
