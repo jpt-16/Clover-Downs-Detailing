@@ -13,6 +13,9 @@ export type Testimonial = {
   source?: string;
 };
 
+/** Reviews are out of five, so the row always draws five and dims the rest. */
+const MAX_RATING = 5;
+
 const NAV =
   "flex h-11 w-11 items-center justify-center border border-edge text-bone transition-colors hover:border-leaf hover:text-leaf";
 
@@ -33,51 +36,83 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 
   const many = items.length > 1;
   const current = items[index];
-  const step = (delta: number) => setIndex((n) => (n + delta + items.length) % items.length);
+  const step = (delta: number) =>
+    setIndex((n) => (n + delta + items.length) % items.length);
 
   return (
     <Reveal className="mt-16 border-t border-rule pt-14">
-      <div className="mb-8 flex items-center justify-between gap-6">
-        <span className="eyebrow">What customers say</span>
-        {many && (
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[0.6875rem] tracking-[0.2em] text-dim" aria-hidden>
-              {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-            </span>
-            <button type="button" onClick={() => step(-1)} aria-label="Previous review" className={NAV}>
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button type="button" onClick={() => step(1)} aria-label="Next review" className={NAV}>
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Announces the new quote when the arrows change it, rather than
-          leaving a screen reader on a silently swapped page. */}
-      <div aria-live="polite">
-        <blockquote key={index} className="quote-in m-0 flex max-w-[60ch] flex-col gap-5">
-          {current.rating !== undefined && (
-            <span className="flex gap-1 text-leaf" role="img" aria-label={`${current.rating} out of 5 stars`}>
-              {Array.from({ length: current.rating }, (_, i) => (
-                <Star key={i} className="h-4 w-4" />
-              ))}
-            </span>
+      {/* Held to a column rather than the full section width: one short quote
+          stretched across 1400px reads as a gap in the page, and it keeps the
+          arrows sitting on the card's own right edge. */}
+      <div className="max-w-[46rem]">
+        <div className="mb-8 flex items-center justify-between gap-6">
+          <span className="eyebrow">What customers say</span>
+          {many && (
+            <div className="flex items-center gap-3">
+              <span
+                className="font-mono text-[0.6875rem] tracking-[0.2em] text-dim"
+                aria-hidden
+              >
+                {String(index + 1).padStart(2, "0")} /{" "}
+                {String(items.length).padStart(2, "0")}
+              </span>
+              <button
+                type="button"
+                onClick={() => step(-1)}
+                aria-label="Previous review"
+                className={NAV}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => step(1)}
+                aria-label="Next review"
+                className={NAV}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           )}
-          <p className="text-[1.25rem] leading-[1.5] font-light sm:text-[1.375rem]">&ldquo;{current.quote}&rdquo;</p>
-          <footer className="text-[0.6875rem] tracking-[0.2em] text-dim uppercase">
-            {current.who}
-            {current.source && (
-              <>
-                <span aria-hidden className="px-2 text-rule-strong">
-                  /
-                </span>
-                {current.source}
-              </>
+        </div>
+
+        {/* Announces the new quote when the arrows change it, rather than
+          leaving a screen reader on a silently swapped page. */}
+        <div aria-live="polite">
+          <blockquote
+            key={index}
+            className="quote-in m-0 flex flex-col gap-6 border border-rule-strong bg-ink-raised px-7 py-8 sm:px-10 sm:py-10"
+          >
+            {current.rating !== undefined && (
+              <span
+                className="flex gap-1.5 text-leaf"
+                role="img"
+                aria-label={`${current.rating} out of ${MAX_RATING} stars`}
+              >
+                {Array.from({ length: MAX_RATING }, (_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-[1.125rem] w-[1.125rem] ${i < current.rating! ? "" : "text-rule-strong"}`}
+                  />
+                ))}
+              </span>
             )}
-          </footer>
-        </blockquote>
+            <p className="max-w-[46ch] text-[1.25rem] leading-[1.45] font-light text-bone sm:text-[1.4375rem]">
+              &ldquo;{current.quote}&rdquo;
+            </p>
+            <footer className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule pt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">
+              <span className="text-leaf">{current.who}</span>
+              {current.source && (
+                <>
+                  <span aria-hidden className="text-rule-strong">
+                    /
+                  </span>
+                  <span>{current.source} review</span>
+                </>
+              )}
+            </footer>
+          </blockquote>
+        </div>
       </div>
     </Reveal>
   );

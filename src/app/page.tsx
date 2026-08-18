@@ -72,7 +72,7 @@ const GROUNDWORK = [
 const TESTIMONIALS: Testimonial[] = [
   {
     quote: "Worked very hard and did a great job and was efficient worth the money",
-    who: "Nathan T.",
+    who: "Nathan",
     rating: 5,
     source: "Google",
   },
