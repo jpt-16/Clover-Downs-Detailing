@@ -73,6 +73,9 @@ function StructuredData() {
     description: site.description,
     slogan: site.tagline,
     url: site.url,
+    // Who actually runs the business. Google uses this on local listings, and
+    // it matches the name given in the About section.
+    founder: { "@type": "Person", name: site.owner.name },
     telephone: site.phone.e164,
     ...(site.email ? { email: site.email } : {}),
     // Ties the site and the Instagram profile to the same business.

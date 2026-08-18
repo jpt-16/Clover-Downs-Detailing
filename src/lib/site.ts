@@ -33,6 +33,10 @@ export const site = {
   name: "Clover Downs Detailing",
   shortName: "Clover Downs",
   tagline: "Cleaner. Shinier. Better.",
+
+  /** The person behind the business. Named in the About section, and given to
+   *  Google as the business founder in the structured data. */
+  owner: { name: "Paul", role: "owner and operator" },
   description:
     "Mobile auto detailing in Beverly, MA and the North Shore. Interior details and exterior hand washes done in your driveway — free quotes by phone, text, or online.",
 

@@ -309,22 +309,31 @@ export default function Home() {
 
         <div className="flex flex-col">
           <Reveal>
-            <div className="flex max-w-[58ch] flex-col gap-5 text-[1.0625rem] leading-[1.7] text-muted">
-              <p>
-                <span className="text-bone">Meet Paul, owner and operator of Clover Downs Detailing.</span> He&rsquo;s
-                had a thing for cars as long as he can remember — growing up he was the one out in the driveway helping
-                his parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.
+            <div className="flex max-w-[58ch] flex-col gap-6">
+              <p className="text-[1.0625rem] leading-[1.7] text-bone">
+                Meet {site.owner.name}, {site.owner.role} of {site.name}.
               </p>
-              <p>
-                We&rsquo;ve been detailing for a few months now. We say that plainly, because it&rsquo;s exactly why
-                we&rsquo;ve been so deliberate about how we started — researching products, working out technique, and
-                buying proper equipment before we touched a single customer&rsquo;s car.{" "}
-                <span className="text-bone">We&rsquo;re not learning on your paint.</span>
-              </p>
-              <p>
-                What you get is a job done properly and without wasted time: the same care we&rsquo;d give a car sitting
-                in our own driveway.
-              </p>
+              {/* Paul's own words, so the voice switches to first person here.
+                  The rule down the side carries the quotation across all three
+                  paragraphs — opening marks on every one would read as three
+                  separate quotes. */}
+              <blockquote className="flex flex-col gap-5 border-l border-leaf/40 pl-6 text-[1.0625rem] leading-[1.7] text-muted sm:pl-7">
+                <p>
+                  &ldquo;I&rsquo;ve had a thing for cars as long as I can remember. Growing up I was the one out in the
+                  driveway helping my parents clean theirs, and somewhere in all that the idea for Clover Downs took
+                  shape.
+                </p>
+                <p>
+                  I&rsquo;ve been detailing for a few months now. I say that plainly, because it&rsquo;s exactly why
+                  I&rsquo;ve been so deliberate about how I started — researching products, working out technique, and
+                  buying proper equipment before I touched a single customer&rsquo;s car.{" "}
+                  <span className="text-bone">I&rsquo;m not learning on your paint.</span>
+                </p>
+                <p>
+                  What you get is a job done properly and without wasted time: the same care I&rsquo;d give a car
+                  sitting in my own driveway.&rdquo;
+                </p>
+              </blockquote>
             </div>
           </Reveal>
 
