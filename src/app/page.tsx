@@ -311,8 +311,9 @@ export default function Home() {
           <Reveal>
             <div className="flex max-w-[58ch] flex-col gap-5 text-[1.0625rem] leading-[1.7] text-muted">
               <p>
-                I&rsquo;ve had a thing for cars as long as I can remember. Growing up I was the one out in the driveway
-                helping my parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.
+                <span className="text-bone">Meet Paul, owner and operator of Clover Downs Detailing.</span> He&rsquo;s
+                had a thing for cars as long as he can remember — growing up he was the one out in the driveway helping
+                his parents clean theirs, and somewhere in all that the idea for Clover Downs took shape.
               </p>
               <p>
                 We&rsquo;ve been detailing for a few months now. We say that plainly, because it&rsquo;s exactly why
