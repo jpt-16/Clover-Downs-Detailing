@@ -37,8 +37,10 @@ export const site = {
   /** The person behind the business. Named in the About section, and given to
    *  Google as the business founder in the structured data. */
   owner: { name: "Paul", role: "owner and operator" },
+  // Kept under ~155 characters so Google shows the whole thing in a result
+  // snippet rather than cutting the free-quote offer off the end.
   description:
-    "Mobile auto detailing in Beverly, MA and the North Shore. Interior details and exterior hand washes done in your driveway — free quotes by phone, text, or online.",
+    "Mobile auto detailing in Beverly, MA and across the North Shore. Interior details and hand washes done in your driveway — free quotes by phone or text.",
 
   /** See resolveUrl above. Set SITE_URL in Vercel when a domain is connected. */
   url: resolveUrl(),
@@ -93,6 +95,18 @@ export const site = {
       href: "https://www.instagram.com/cloverdowns_detailing/",
     },
   ] as { label: string; handle: string; href: string }[],
+
+  /**
+   * Google Business Profile URL, once the listing is claimed and verified.
+   *
+   * This is the single highest-value link the site can carry. For a mobile
+   * business the map pack, not the website, wins most "detailing near me"
+   * searches, and this is what tells Google the profile and the site are one
+   * business — which is also how review stars reach search results. Paste the
+   * profile's share link here and it is emitted as both `sameAs` and `hasMap`.
+   * Empty means neither field appears, which is correct until it exists.
+   */
+  googleBusinessProfile: "",
 
   /** Build credit shown in the footer. */
   credit: { label: "JT Builds Co", href: "https://jtbuildsco.com" },

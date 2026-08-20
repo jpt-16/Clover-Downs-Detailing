@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -29,13 +30,9 @@ export const metadata: Metadata = {
     template: `%s — ${site.name}`,
   },
   description: site.description,
-  keywords: [
-    "mobile detailing",
-    "auto detailing",
-    `car detailing ${site.city} MA`,
-    "interior detailing North Shore",
-    "mobile car wash Beverly MA",
-  ],
+  // No `keywords` here on purpose: Google has ignored the meta keywords tag
+  // for well over a decade, and the terms it listed are better earned by the
+  // h1 and the page copy, which is where they now live.
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -78,8 +75,20 @@ function StructuredData() {
     founder: { "@type": "Person", name: site.owner.name },
     telephone: site.phone.e164,
     ...(site.email ? { email: site.email } : {}),
-    // Ties the site and the Instagram profile to the same business.
-    ...(site.social.length > 0 ? { sameAs: site.social.map((s) => s.href) } : {}),
+    // Ties the site to every other profile that is the same business. The
+    // Google Business Profile matters most of the lot — it is what connects
+    // this page to the map listing people actually search — so it is listed
+    // alongside the socials and again as hasMap. Both drop out while the
+    // profile URL is unset.
+    ...(site.social.length > 0 || site.googleBusinessProfile
+      ? {
+          sameAs: [
+            ...site.social.map((s) => s.href),
+            ...(site.googleBusinessProfile ? [site.googleBusinessProfile] : []),
+          ],
+        }
+      : {}),
+    ...(site.googleBusinessProfile ? { hasMap: site.googleBusinessProfile } : {}),
     priceRange: "$$",
     paymentAccepted: site.payments.join(", "),
     currenciesAccepted: "USD",
@@ -150,6 +159,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <MobileBookBarSpacer />
         <MobileBookBar />
+        {/* Cookieless, so it needs no consent banner. Without it there is no
+            way to tell whether any of the SEO work is landing — or which of
+            phone, text, and the form people actually use. */}
+        <Analytics />
       </body>
     </html>
   );

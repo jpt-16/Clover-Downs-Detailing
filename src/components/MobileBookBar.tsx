@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { track } from "@vercel/analytics";
 import { smsHref } from "@/lib/site";
 
 /**
@@ -64,6 +65,7 @@ export function MobileBookBar() {
         <a
           href={smsHref}
           tabIndex={shown ? undefined : -1}
+          onClick={() => track("text_tapped", { from: "mobile_bar" })}
           className="btn-secondary px-6 py-4 text-sm"
         >
           TEXT
