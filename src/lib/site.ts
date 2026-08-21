@@ -105,8 +105,14 @@ export const site = {
    * business — which is also how review stars reach search results. Paste the
    * profile's share link here and it is emitted as both `sameAs` and `hasMap`.
    * Empty means neither field appears, which is correct until it exists.
+   *
+   * This is the profile's share link, which redirects to the Maps listing.
+   * A canonical https://www.google.com/maps/place/… URL would be marginally
+   * better — one less redirect for a crawler to follow — so swap it here if
+   * you ever copy that address out of the Maps address bar. Nothing else
+   * needs to change.
    */
-  googleBusinessProfile: "",
+  googleBusinessProfile: "https://share.google/XxLsSyr2sx8tWmT3C",
 
   /** Build credit shown in the footer. */
   credit: { label: "JT Builds Co", href: "https://jtbuildsco.com" },
