@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 import { site, telHref, smsHref, FORMSUBMIT_ENDPOINT } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -43,6 +44,9 @@ export function QuoteForm() {
 
       if (ok) {
         setStatus("sent");
+        // The conversion. Counted here rather than on the button so a failed
+        // send is never recorded as a lead.
+        track("quote_requested");
         form.reset();
       } else {
         setStatus("error");
@@ -190,7 +194,7 @@ export function QuoteForm() {
       {status === "error" && (
         <p role="alert" className="border border-red-500/40 bg-red-500/[0.07] px-4 py-3 text-[0.875rem] text-red-200">
           {error} You can always call or text{" "}
-          <a href={telHref} className="underline underline-offset-4">
+          <a href={telHref} onClick={() => track("call_tapped", { from: "quote_form" })} className="underline underline-offset-4">
             {site.phone.display}
           </a>
           .
@@ -207,7 +211,7 @@ export function QuoteForm() {
               whole way down the page. */}
           {status === "sending" ? "SENDING…" : "GET MY FREE QUOTE"}
         </button>
-        <a href={smsHref} className="btn-secondary w-full px-8 py-4 text-sm sm:w-auto">
+        <a href={smsHref} onClick={() => track("text_tapped", { from: "quote_form" })} className="btn-secondary w-full px-8 py-4 text-sm sm:w-auto">
           TEXT INSTEAD
         </a>
       </div>

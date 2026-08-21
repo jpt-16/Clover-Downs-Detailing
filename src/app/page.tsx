@@ -99,16 +99,22 @@ export default function Home() {
 
         <div className="relative w-full px-6 pt-24 pb-16 sm:px-10 lg:px-14 lg:pb-20">
           <div className="flex max-w-[760px] flex-col gap-6 lg:gap-7">
-            <Reveal as="span" className="eyebrow">
-              Mobile detailing — {site.areaLabel}
-            </Reveal>
-            <Reveal as="h1" delay={100}>
-              {/* States the offer plainly rather than leading with a brand
-                  line. A first-time visitor should know what is being sold
-                  and where before they scroll. */}
-              <span className="block max-w-[15ch] text-[clamp(2.5rem,7vw,5.25rem)] leading-[0.95] font-light tracking-[-0.04em]">
+            {/* Both lines live inside the h1 on purpose. The small line names
+                the service and the towns — the words people actually search —
+                and the large line states the offer plainly. Splitting them so
+                the h1 held only the second one left the page's most important
+                heading ranking for nothing. The gap and the stagger are the
+                same as when these were two separate elements, so nothing
+                moves on screen. */}
+            <Reveal as="h1" className="flex flex-col gap-6 lg:gap-7">
+              <span className="eyebrow">Mobile detailing — {site.areaLabel}</span>
+              <Reveal
+                as="span"
+                delay={100}
+                className="block max-w-[15ch] text-[clamp(2.5rem,7vw,5.25rem)] leading-[0.95] font-light tracking-[-0.04em]"
+              >
                 Your car, detailed in your driveway.
-              </span>
+              </Reveal>
             </Reveal>
             <Reveal as="p" delay={200} className="max-w-[46ch] text-[1.0625rem] leading-relaxed text-soft sm:text-[1.1875rem]">
               Interior and exterior detailing that comes to you. Send a photo, get a price back the same day, and keep
