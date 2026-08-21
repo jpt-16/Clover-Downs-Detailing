@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { BeforeAfter } from "@/components/BeforeAfter";
@@ -7,6 +8,7 @@ import { Testimonials, type Testimonial } from "@/components/Testimonials";
 import { ArrowRight, InstagramGlyph } from "@/components/Icons";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
+import { towns } from "@/lib/towns";
 
 /**
  * Trust bar. Every line here is a promise the business can actually keep —
@@ -401,10 +403,24 @@ export default function Home() {
       <section id="area" className="px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
         <Reveal className="flex flex-col gap-6">
           <span className="label">Where we work</span>
+          {/* Each town links to its own page. This is also the only route a
+              crawler has into them from the homepage, so it is doing real
+              work beyond navigation. Towns without a page stay plain text. */}
           <div className="flex flex-wrap gap-x-8 gap-y-3 text-[1.0625rem] text-muted">
-            {site.towns.map((town) => (
-              <span key={town}>{town}</span>
-            ))}
+            {site.towns.map((town) => {
+              const page = towns.find((t) => t.name === town);
+              return page ? (
+                <Link
+                  key={town}
+                  href={`/mobile-detailing/${page.slug}`}
+                  className="underline-offset-4 transition-colors hover:text-leaf hover:underline"
+                >
+                  {town}
+                </Link>
+              ) : (
+                <span key={town}>{town}</span>
+              );
+            })}
           </div>
           <p className="max-w-[52ch] text-[0.9375rem] leading-relaxed text-dim">
             Not on the list? Ask anyway — if you&rsquo;re near the North Shore we can usually make it work.
