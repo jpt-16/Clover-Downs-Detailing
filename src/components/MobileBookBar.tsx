@@ -45,7 +45,8 @@ export function MobileBookBar() {
   const shown = pastHero && !atForm;
 
   return (
-    <div
+    <nav
+      aria-label="Book"
       // aria-hidden while off-screen so the links leave the tab order too,
       // rather than being invisible but still focusable.
       aria-hidden={!shown}
@@ -71,7 +72,7 @@ export function MobileBookBar() {
           TEXT
         </a>
       </div>
-    </div>
+    </nav>
   );
 }
 

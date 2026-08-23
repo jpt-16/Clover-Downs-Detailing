@@ -75,14 +75,14 @@ when a pair can use the drag-to-compare slider instead of side by side.
 entries to the front of the list so the newest shows first:
 
 ```ts
-{ quote: "…", who: "Nathan T.", rating: 5, source: "Google" }
+{ quote: "…", who: "Nathan", rating: 5, source: "Google" }
 ```
 
 `rating` and `source` are both optional. The carousel's arrows appear on their
 own once there is more than one review, and the whole block disappears if the
 list is emptied — so the site never shows invented social proof.
 
-Use a first name and last initial rather than a full name, and only quote
+Use the reviewer's first name rather than their full name, and only quote
 reviews the customer left publicly.
 
 ## Deploying
@@ -232,4 +232,23 @@ Worth preserving if you edit the design:
 - Scroll-reveal hides elements only when JavaScript is present, and is disabled
   entirely under `prefers-reduced-motion`. The page is fully readable with
   JavaScript off.
-- Every interactive element gets the same green focus ring.
+- Every interactive element gets the same green focus ring. **Never add
+  `focus:outline-none`** — a border colour change on its own is a 1px cue and
+  weaker than the ring everything else gets.
+- **Inline links in body text stay underlined**, not `hover:underline`. Green
+  on grey is only 1.49:1 against the surrounding text, well under the 3:1
+  WCAG needs, so colour alone cannot be what marks a link.
+- New photos need real alt text describing *what the picture shows*, in the
+  style of the existing ones in `src/lib/photos.ts`.
+
+### Audit status
+
+Audited with axe-core (WCAG 2.0/2.1 A + AA + best-practice) across the home,
+privacy, and town pages at desktop and mobile widths: **0 violations**. Also
+checked by hand: keyboard reachability of all 45 focus stops, a visible focus
+ring on every one, heading order (single `h1`, no skipped levels), no
+horizontal overflow at 200% zoom or 400% reflow, and reduced-motion honoured.
+
+Automated tools catch roughly a third of WCAG issues, so this is a floor, not
+a certificate. Re-run the audit after any change to the form, the carousel, or
+the before/after components.

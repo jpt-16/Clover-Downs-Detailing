@@ -6,8 +6,11 @@ import { site, telHref, smsHref, FORMSUBMIT_ENDPOINT } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+// No focus:outline-none here. The green border alone is a 1px cue, weaker
+// than the 2px ring every other control on the site gets; keeping both means
+// the fields match, and focus stays obvious against a dark field.
 const FIELD =
-  "w-full border border-rule-strong bg-ink-raised px-4 py-3.5 text-[0.9375rem] text-bone placeholder:text-dim/70 transition-colors focus:border-leaf focus:outline-none";
+  "w-full border border-rule-strong bg-ink-raised px-4 py-3.5 text-[0.9375rem] text-bone placeholder:text-dim/70 transition-colors focus:border-leaf";
 const LABEL = "block text-[0.6875rem] tracking-[0.2em] text-dim uppercase mb-2";
 
 export function QuoteForm() {
@@ -65,7 +68,7 @@ export function QuoteForm() {
         <p className="mt-4 text-2xl font-light tracking-[-0.02em] text-bone">Thanks — we&rsquo;ll be in touch.</p>
         <p className="mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed text-muted">
           You&rsquo;ll get a price and a time back, usually the same day. If it&rsquo;s urgent, call or text{" "}
-          <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
+          <a href={telHref} className="text-leaf underline underline-offset-4">
             {site.phone.display}
           </a>
           .
@@ -222,7 +225,7 @@ export function QuoteForm() {
 
       <p className="text-[0.75rem] leading-relaxed text-dim">
         We use what you send here to quote your car and get back to you — nothing else. See our{" "}
-        <a href="/privacy" className="text-leaf underline-offset-4 hover:underline">
+        <a href="/privacy" className="text-leaf underline underline-offset-4">
           privacy policy
         </a>
         .

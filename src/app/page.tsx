@@ -413,7 +413,7 @@ export default function Home() {
                 <Link
                   key={town}
                   href={`/mobile-detailing/${page.slug}`}
-                  className="underline-offset-4 transition-colors hover:text-leaf hover:underline"
+                  className="underline underline-offset-4 transition-colors hover:text-leaf"
                 >
                   {town}
                 </Link>

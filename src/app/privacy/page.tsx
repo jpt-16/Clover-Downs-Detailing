@@ -25,7 +25,7 @@ function Section({ n, title, children }: { n: string; title: string; children: R
 
 export default function PrivacyPage() {
   const phoneLink = (
-    <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
+    <a href={telHref} className="text-leaf underline underline-offset-4">
       {site.phone.display}
     </a>
   );
@@ -182,11 +182,11 @@ export default function PrivacyPage() {
           {site.email ? (
             <p>
               Questions about this policy, or about anything we hold on you? Email{" "}
-              <a href={`mailto:${site.email}`} className="break-all text-leaf underline-offset-4 hover:underline">
+              <a href={`mailto:${site.email}`} className="break-all text-leaf underline underline-offset-4">
                 {site.email}
               </a>
               , or call {phoneLink}. A{" "}
-              <a href={smsHref} className="text-leaf underline-offset-4 hover:underline">
+              <a href={smsHref} className="text-leaf underline underline-offset-4">
                 text
               </a>{" "}
               is fine too — you&rsquo;ll reach the owner either way.
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
           ) : (
             <p>
               Questions about this policy, or about anything we hold on you? Call {phoneLink}. A{" "}
-              <a href={smsHref} className="text-leaf underline-offset-4 hover:underline">
+              <a href={smsHref} className="text-leaf underline underline-offset-4">
                 text
               </a>{" "}
               is fine — you&rsquo;ll reach the owner either way.

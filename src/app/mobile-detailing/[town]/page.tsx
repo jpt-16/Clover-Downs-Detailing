@@ -172,7 +172,7 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
           <p className="max-w-[56ch] text-[0.9375rem] leading-relaxed text-muted">
             Price depends on the car and its condition, so every job is quoted individually rather than guessed from a
             list.{" "}
-            <Link href="/#services" className="text-leaf underline-offset-4 hover:underline">
+            <Link href="/#services" className="text-leaf underline underline-offset-4">
               Full detail on what each service includes
             </Link>
             .
@@ -188,7 +188,7 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
           <p className="max-w-[62ch] text-[0.9375rem] leading-relaxed text-dim">
             We work off an outdoor tap and a power outlet, and we come to you — there is no drop-off and no waiting
             room. Call or text{" "}
-            <a href={telHref} className="text-leaf underline-offset-4 hover:underline">
+            <a href={telHref} className="text-leaf underline underline-offset-4">
               {site.phone.display}
             </a>{" "}
             if you would rather just ask.
@@ -223,7 +223,7 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
               <Link
                 key={other.slug}
                 href={`/mobile-detailing/${other.slug}`}
-                className="text-muted underline-offset-4 transition-colors hover:text-leaf hover:underline"
+                className="text-muted underline underline-offset-4 transition-colors hover:text-leaf"
               >
                 {other.name}
               </Link>
