@@ -36,8 +36,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 
   const many = items.length > 1;
   const current = items[index];
-  const step = (delta: number) =>
-    setIndex((n) => (n + delta + items.length) % items.length);
+  const step = (delta: number) => setIndex((n) => (n + delta + items.length) % items.length);
 
   return (
     <Reveal className="mt-16 border-t border-rule pt-14">
@@ -49,27 +48,13 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
           <span className="eyebrow">What customers say</span>
           {many && (
             <div className="flex items-center gap-3">
-              <span
-                className="font-mono text-[0.6875rem] tracking-[0.2em] text-dim"
-                aria-hidden
-              >
-                {String(index + 1).padStart(2, "0")} /{" "}
-                {String(items.length).padStart(2, "0")}
+              <span className="font-mono text-[0.6875rem] tracking-[0.2em] text-dim" aria-hidden>
+                {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
               </span>
-              <button
-                type="button"
-                onClick={() => step(-1)}
-                aria-label="Previous review"
-                className={NAV}
-              >
+              <button type="button" onClick={() => step(-1)} aria-label="Previous review" className={NAV}>
                 <ChevronLeft className="h-5 w-5" />
               </button>
-              <button
-                type="button"
-                onClick={() => step(1)}
-                aria-label="Next review"
-                className={NAV}
-              >
+              <button type="button" onClick={() => step(1)} aria-label="Next review" className={NAV}>
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
