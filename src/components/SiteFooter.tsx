@@ -47,6 +47,11 @@ export function SiteFooter() {
                   Privacy policy
                 </Link>
               </li>
+              <li>
+                <Link href="/accessibility" className="transition-colors hover:text-leaf">
+                  Accessibility
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -93,6 +98,9 @@ export function SiteFooter() {
         <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
           <Link href="/privacy" className="transition-colors hover:text-leaf">
             Privacy
+          </Link>
+          <Link href="/accessibility" className="transition-colors hover:text-leaf">
+            Accessibility
           </Link>
           <span>
             Made by{" "}

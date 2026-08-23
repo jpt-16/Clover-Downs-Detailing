@@ -14,6 +14,7 @@ import { towns } from "@/lib/towns";
 const LAST_MODIFIED = {
   home: new Date("2026-08-20"),
   privacy: new Date("2026-08-14"),
+  accessibility: new Date("2026-08-23"),
   towns: new Date("2026-08-21"),
 };
 
@@ -31,6 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${site.url}/privacy`,
       lastModified: LAST_MODIFIED.privacy,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${site.url}/accessibility`,
+      lastModified: LAST_MODIFIED.accessibility,
       changeFrequency: "yearly",
       priority: 0.3,
     },
