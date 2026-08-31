@@ -25,6 +25,12 @@ export type Town = {
   slug: string;
   /** Display name, matching the entry in site.towns. */
   name: string;
+  /**
+   * Page meta description. Written per town around what that town actually
+   * does to a car — these were eight copies of one sentence, which Google
+   * rewrites and which wastes the click. Keep under 155 characters.
+   */
+  metaDescription: string;
   /** Where it sits relative to Beverly, in plain terms. */
   proximity: string;
   /** Opening paragraph. Specific to the town, never a template. */
@@ -38,6 +44,8 @@ export type Town = {
 export const towns: Town[] = [
   {
     slug: "beverly",
+    metaDescription:
+      "Mobile detailing in Beverly, MA — done in your driveway. Winter salt off 128, harbor air, Lynch Park sand. Free quote by text, no deposit.",
     name: "Beverly",
     proximity: "Home base. The van starts here.",
     intro:
@@ -61,6 +69,8 @@ export const towns: Town[] = [
   },
   {
     slug: "beverly-farms",
+    metaDescription:
+      "Mobile detailing in Beverly Farms, MA. Year-round salt air, sap under the trees, gravel drives. Free quote by text.",
     name: "Beverly Farms",
     proximity: "About ten minutes up the coast from downtown Beverly.",
     intro:
@@ -84,6 +94,8 @@ export const towns: Town[] = [
   },
   {
     slug: "danvers",
+    metaDescription:
+      "Mobile detailing in Danvers, MA. Highway film off 1 and 128, bug season, winter spray. Free quote by text, no deposit to book.",
     name: "Danvers",
     proximity: "Ten minutes inland from Beverly.",
     intro:
@@ -107,6 +119,8 @@ export const towns: Town[] = [
   },
   {
     slug: "salem",
+    metaDescription:
+      "Mobile detailing in Salem, MA. Street-parked or driveway, we work around it. Free quote by text — tell us where the car sits.",
     name: "Salem",
     proximity: "Ten minutes south along the coast.",
     intro:
@@ -130,6 +144,8 @@ export const towns: Town[] = [
   },
   {
     slug: "peabody",
+    metaDescription:
+      "Mobile detailing in Peabody, MA. Commuter miles, brake dust, road salt. Done in your driveway — free quote by text, no deposit.",
     name: "Peabody",
     proximity: "About fifteen minutes west.",
     intro:
@@ -153,6 +169,8 @@ export const towns: Town[] = [
   },
   {
     slug: "wenham",
+    metaDescription:
+      "Mobile detailing in Wenham, MA. Sap, pollen and dust off the unpaved edges. Done in your driveway — free quote by text.",
     name: "Wenham",
     proximity: "Ten minutes north.",
     intro:
@@ -176,6 +194,8 @@ export const towns: Town[] = [
   },
   {
     slug: "hamilton",
+    metaDescription:
+      "Mobile detailing in Hamilton, MA. Dirt roads, hay, pet hair, sap. Detailed at the house or the barn — free quote by text.",
     name: "Hamilton",
     proximity: "About fifteen minutes north.",
     intro:
@@ -199,6 +219,8 @@ export const towns: Town[] = [
   },
   {
     slug: "manchester-by-the-sea",
+    metaDescription:
+      "Mobile detailing in Manchester-by-the-Sea. Singing Beach sand, ocean salt, harbor damp. Detailed in your driveway — free quote by text.",
     name: "Manchester-by-the-Sea",
     proximity: "About fifteen minutes up the coast.",
     intro:

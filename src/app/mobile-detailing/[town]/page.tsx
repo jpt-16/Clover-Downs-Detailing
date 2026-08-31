@@ -28,7 +28,7 @@ export async function generateMetadata({
     title: {
       absolute: `Mobile Detailing in ${town.name}, ${site.region} — ${site.name}`,
     },
-    description: `Mobile auto detailing in ${town.name}, ${site.region}. Interior details and exterior hand washes done in your driveway — free quotes by phone or text.`,
+    description: town.metaDescription,
     alternates: { canonical: `/mobile-detailing/${town.slug}` },
     openGraph: {
       type: "website",
@@ -94,12 +94,20 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="border-b border-rule px-6 pt-28 pb-16 sm:px-10 lg:px-14 lg:pt-32 lg:pb-20">
         <div className="flex max-w-[760px] flex-col gap-6 lg:gap-7">
-          <Reveal as="h1" className="flex flex-col gap-6 lg:gap-7">
-            <span className="eyebrow">
+          {/* The eyebrow used to sit inside the h1, so the heading read
+              "Beverly & the North Shore — Beverly Mobile detailing in Beverly."
+              It is a sibling now: one clean h1, same layout. The wrapper keeps
+              the flex column and gap the h1 used to provide, so nothing moves. */}
+          <Reveal className="flex flex-col gap-6 lg:gap-7">
+            {/* text-balance was inherited from the h1 this used to sit inside.
+                Kept explicitly so the line break lands where it always did on
+                narrow screens — scoped here rather than on .eyebrow, which
+                would change every other eyebrow on the site. */}
+            <span className="eyebrow text-balance">
               {site.areaLabel} — {town.name}
             </span>
             <Reveal
-              as="span"
+              as="h1"
               delay={100}
               className="block max-w-[16ch] text-[clamp(2.25rem,6vw,4.25rem)] leading-[0.98] font-light tracking-[-0.04em]"
             >
