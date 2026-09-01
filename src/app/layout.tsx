@@ -66,6 +66,11 @@ function StructuredData() {
   const json = {
     "@context": "https://schema.org",
     "@type": "AutoDetailing",
+    // Stable identity for the business. Blog posts reference this by @id for
+    // publisher and author.worksFor rather than repeating the whole object,
+    // so there is one business entity across the site instead of a copy per
+    // page. Phase 3 points the town-page Service.provider at it too.
+    "@id": `${site.url}/#business`,
     name: site.name,
     description: site.description,
     slogan: site.tagline,
