@@ -234,6 +234,17 @@ export default function Home() {
                     ))}
                   </div>
                 )}
+                {/* The section stays — it is what a first-time visitor reads.
+                    The link is what gives the service a URL that can rank. */}
+                {service.href && (
+                  <Link
+                    href={service.href}
+                    className="mt-5 inline-flex items-center gap-2 text-[0.875rem] text-leaf underline underline-offset-4"
+                  >
+                    Full details on {service.title.toLowerCase()}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             </Reveal>
           ))}

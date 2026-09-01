@@ -152,6 +152,8 @@ export const services = [
     numeral: "I",
     id: "interior",
     title: "Full interior detail",
+    /** Its own page. `null` where a service has no page of its own. */
+    href: "/interior-car-detailing",
     copy: "Vacuumed throughout, carpets and seats extracted, every hard surface cleaned, glass left streak-free. Odors treated at the source, then a light scent to finish. Pet hair and set-in spills are part of the job, not an upcharge.",
     bestFor: "Kids, pets, spilled coffee, or a car you're about to sell",
     chips: ["Vacuum", "Carpet extraction", "Interior surfaces", "Pet hair", "Odor + scent"],
@@ -160,6 +162,7 @@ export const services = [
     numeral: "II",
     id: "exterior",
     title: "Exterior hand wash",
+    href: "/exterior-hand-wash",
     copy: "Two buckets and clean mitts, wheels and wells first, bugs and tar off, hand-dried and tires dressed. Ask for a hand wax and the shine holds through the season. Nothing abrasive touches your paint.",
     bestFor: "Road salt, pollen, bug season, or a quick refresh",
     chips: ["Hand wash", "Hand wax", "Wheels", "Tar + bugs", "Hand dry"],
@@ -168,6 +171,8 @@ export const services = [
     numeral: "III",
     id: "both",
     title: "Both, one visit",
+    // Booked as a combination of the two above, so it has no page of its own.
+    href: null,
     copy: "Inside and out in a single appointment. The full reset, and the one to pick if it has been a while.",
     bestFor: "First details and end-of-season resets",
     chips: [],

@@ -23,8 +23,13 @@ export function SiteFooter() {
             <p className="label mb-4">Site</p>
             <ul className="flex flex-col gap-2.5 text-[0.875rem] text-muted">
               <li>
-                <Link href="/#services" className="transition-colors hover:text-leaf">
-                  Services
+                <Link href="/interior-car-detailing" className="transition-colors hover:text-leaf">
+                  Interior detailing
+                </Link>
+              </li>
+              <li>
+                <Link href="/exterior-hand-wash" className="transition-colors hover:text-leaf">
+                  Exterior hand wash
                 </Link>
               </li>
               <li>

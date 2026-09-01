@@ -168,20 +168,38 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
       <section className="border-b border-rule px-6 py-20 sm:px-10 lg:px-14 lg:py-24">
         <Reveal className="flex flex-col gap-6">
           <span className="label">What you can book</span>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {services.map((service) => (
-              <div key={service.id} className="border-t border-rule pt-5">
-                <span className="text-[0.8125rem] font-medium tracking-[0.18em] text-leaf">{service.numeral}</span>
-                <h3 className="mt-2 text-lg font-normal tracking-[-0.02em]">{service.title}</h3>
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-dim">{service.bestFor}</p>
-              </div>
-            ))}
+          {/* A summary, not the full service copy. The same three
+              descriptions used to render here and on the homepage — nine
+              near-identical copies of the same 150 words, which is the one
+              real duplicate-content risk on the site. The detail now lives on
+              one page per service, and these link to it. */}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {services
+              .filter((service) => service.href !== null)
+              .map((service) => (
+                <div key={service.id} className="border-t border-rule pt-5">
+                  <span className="text-[0.8125rem] font-medium tracking-[0.18em] text-leaf">{service.numeral}</span>
+                  <h3 className="mt-2 text-lg font-normal tracking-[-0.02em]">
+                    <Link href={service.href!} className="underline underline-offset-4 transition-colors hover:text-leaf">
+                      {service.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-dim">{service.bestFor}</p>
+                </div>
+              ))}
           </div>
+          <p className="max-w-[56ch] text-[0.9375rem] leading-relaxed text-muted">
+            Book either one, or both in a single visit — the full reset, and the one to pick if it has been a while.
+          </p>
           <p className="max-w-[56ch] text-[0.9375rem] leading-relaxed text-muted">
             Price depends on the car and its condition, so every job is quoted individually rather than guessed from a
             list.{" "}
-            <Link href="/#services" className="text-leaf underline underline-offset-4">
-              Full detail on what each service includes
+            <Link href="/interior-car-detailing" className="text-leaf underline underline-offset-4">
+              What an interior detail includes
+            </Link>{" "}
+            and{" "}
+            <Link href="/exterior-hand-wash" className="text-leaf underline underline-offset-4">
+              what an exterior wash includes
             </Link>
             .
           </p>

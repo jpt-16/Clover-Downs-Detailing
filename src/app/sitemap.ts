@@ -16,6 +16,7 @@ const LAST_MODIFIED = {
   privacy: new Date("2026-08-14"),
   accessibility: new Date("2026-08-23"),
   towns: new Date("2026-08-21"),
+  services: new Date("2026-08-31"),
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,6 +24,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: site.url, lastModified: LAST_MODIFIED.home, changeFrequency: "monthly", priority: 1 },
     // Below the homepage but well above the privacy policy: these are the
     // pages meant to rank for "mobile detailing <town>" searches.
+    // Service pages sit with the town pages in priority: together they are
+    // the two axes people actually search on — what, and where.
+    ...(["interior-car-detailing", "exterior-hand-wash"] as const).map((slug) => ({
+      url: `${site.url}/${slug}`,
+      lastModified: LAST_MODIFIED.services,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
     ...towns.map((town) => ({
       url: `${site.url}/mobile-detailing/${town.slug}`,
       lastModified: LAST_MODIFIED.towns,
