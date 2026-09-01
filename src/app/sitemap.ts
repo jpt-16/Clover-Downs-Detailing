@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { towns } from "@/lib/towns";
+import { getPosts } from "@/lib/blog";
 
 /**
  * When each page's content last actually changed — bumped by hand, on the
@@ -20,6 +21,8 @@ const LAST_MODIFIED = {
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const posts = getPosts();
+
   return [
     { url: site.url, lastModified: LAST_MODIFIED.home, changeFrequency: "monthly", priority: 1 },
     // Below the homepage but well above the privacy policy: these are the
@@ -37,6 +40,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: LAST_MODIFIED.towns,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    // Blog index, then each post at its own lastmod. Both come from the files
+    // in content/blog, so publishing a post updates the sitemap with no edit
+    // here.
+    ...(posts.length > 0
+      ? [
+          {
+            url: `${site.url}/blog`,
+            lastModified: new Date(posts[0].updated),
+            changeFrequency: "weekly" as const,
+            priority: 0.7,
+          },
+        ]
+      : []),
+    ...posts.map((post) => ({
+      url: `${site.url}/blog/${post.slug}`,
+      lastModified: new Date(post.updated),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
     })),
     {
       url: `${site.url}/privacy`,

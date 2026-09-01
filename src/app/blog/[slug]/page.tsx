@@ -19,7 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return {};
 
   return {
-    title: { absolute: `${post.seoTitle} — ${site.name}` },
+    // The drafts' seo_title values are already complete and keyword-targeted
+    // ("... | North Shore MA"). Appending the brand on top pushed these to
+    // 72-81 characters, past what Google shows, so they are used as authored.
+    title: { absolute: post.seoTitle },
     description: post.metaDescription,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
