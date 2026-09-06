@@ -7,6 +7,7 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Testimonials, type Testimonial } from "@/components/Testimonials";
 import { Faq } from "@/components/Faq";
 import { GENERAL_FAQS } from "@/lib/faqs";
+import { getPosts } from "@/lib/blog";
 import { ArrowRight, InstagramGlyph } from "@/components/Icons";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
@@ -87,6 +88,10 @@ const TESTIMONIALS: Testimonial[] = [
 const instagram = site.social.find((s) => s.label === "Instagram");
 
 export default function Home() {
+  // Three newest. The only route a crawler has from the homepage into the
+  // blog, and the only one a reader has that is not the footer.
+  const posts = getPosts().slice(0, 3);
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -411,6 +416,36 @@ export default function Home() {
           <QuoteForm />
         </Reveal>
       </section>
+
+      {/* ── Notes ────────────────────────────────────────────────────── */}
+      {posts.length > 0 && (
+        <section className="border-b border-rule px-6 py-20 sm:px-10 lg:px-14 lg:py-24">
+          <Reveal className="mb-10 flex flex-col gap-4">
+            <span className="eyebrow">Car care notes</span>
+            <h2 className="max-w-[24ch] text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] font-light tracking-[-0.03em]">
+              What we&rsquo;d tell you if you asked.
+            </h2>
+          </Reveal>
+          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, i) => (
+              <Reveal as="li" key={post.slug} delay={i * 90} className="border-t border-rule pt-5">
+                <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-2">
+                  <span className="max-w-[28ch] text-lg font-normal tracking-[-0.02em] underline underline-offset-4 transition-colors group-hover:text-leaf">
+                    {post.title}
+                  </span>
+                  <span className="max-w-[46ch] text-[0.9375rem] leading-relaxed text-dim">{post.excerpt}</span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+          <Reveal delay={280} className="mt-10">
+            <Link href="/blog" className="btn-secondary px-7 py-4 text-sm">
+              READ ALL NOTES
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Reveal>
+        </section>
+      )}
 
       <Faq
         items={GENERAL_FAQS}

@@ -8,6 +8,7 @@ import { site, services, telHref, smsHref } from "@/lib/site";
 import { towns, townBySlug } from "@/lib/towns";
 import { Faq } from "@/components/Faq";
 import { TOWN_GENERAL_FAQS } from "@/lib/faqs";
+import { getPosts } from "@/lib/blog";
 
 /** Every town is known at build time, so all of these are static pages. */
 export function generateStaticParams() {
@@ -85,6 +86,12 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
   if (!town) notFound();
 
   const others = towns.filter((t) => t.slug !== town.slug);
+  // Posts chosen per town in towns.ts, resolved here so a deleted post cannot
+  // leave a dead link behind.
+  const allPosts = getPosts();
+  const related = town.relatedPosts
+    .map((slug) => allPosts.find((post) => post.slug === slug))
+    .filter((post): post is NonNullable<typeof post> => Boolean(post));
 
   return (
     <>
@@ -244,6 +251,27 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
           <QuoteForm />
         </Reveal>
       </section>
+
+      {/* ── Worth reading ────────────────────────────────────────────── */}
+      {related.length > 0 && (
+        <section className="border-b border-rule px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
+          <Reveal className="flex flex-col gap-6">
+            <span className="label">Worth reading in {town.name}</span>
+            <ul className="grid gap-6 sm:grid-cols-2">
+              {related.map((post) => (
+                <li key={post.slug} className="border-t border-rule pt-5">
+                  <Link href={`/blog/${post.slug}`} className="group flex flex-col gap-2">
+                    <span className="max-w-[36ch] text-lg font-normal tracking-[-0.02em] underline underline-offset-4 transition-colors group-hover:text-leaf">
+                      {post.title}
+                    </span>
+                    <span className="max-w-[52ch] text-[0.9375rem] leading-relaxed text-dim">{post.excerpt}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </section>
+      )}
 
       {/* ── The rest of the service area ─────────────────────────────── */}
       <section className="px-6 py-16 sm:px-10 lg:px-14 lg:py-20">

@@ -49,11 +49,19 @@ export type Town = {
    * leave it out rather than pad the set.
    */
   faqs: { q: string; a: string }[];
+  /**
+   * Blog posts worth reading from this town, by slug. Chosen for what this
+   * town actually does to a car, not rotated for the sake of a link — the
+   * beach towns get the sand-and-hair post, the commuter towns get the salt
+   * post. An unrelated link here is noise to a reader and to a crawler.
+   */
+  relatedPosts: string[];
 };
 
 export const towns: Town[] = [
   {
     slug: "beverly",
+    relatedPosts: ["dog-hair-out-of-car-north-shore", "salt-stains-car-carpet-north-shore"],
     faqs: [
       {
         q: "Can you get beach sand out of the carpet?",
@@ -89,6 +97,7 @@ export const towns: Town[] = [
   },
   {
     slug: "beverly-farms",
+    relatedPosts: ["salt-stains-car-carpet-north-shore", "car-wash-vs-detailing-north-shore"],
     faqs: [
       {
         q: "Is a wax worth it out here?",
@@ -124,6 +133,7 @@ export const towns: Town[] = [
   },
   {
     slug: "danvers",
+    relatedPosts: ["salt-stains-car-carpet-north-shore", "car-wash-vs-detailing-north-shore"],
     faqs: [
       {
         q: "What is the film that builds up from commuting on 1 and 128?",
@@ -159,6 +169,7 @@ export const towns: Town[] = [
   },
   {
     slug: "salem",
+    relatedPosts: ["salt-stains-car-carpet-north-shore", "car-wash-vs-detailing-north-shore"],
     faqs: [
       {
         q: "I do not have a driveway. Does that rule me out?",
@@ -194,6 +205,7 @@ export const towns: Town[] = [
   },
   {
     slug: "peabody",
+    relatedPosts: ["salt-stains-car-carpet-north-shore", "car-wash-vs-detailing-north-shore"],
     faqs: [
       {
         q: "What does commuting do to the wheels?",
@@ -229,6 +241,7 @@ export const towns: Town[] = [
   },
   {
     slug: "wenham",
+    relatedPosts: ["car-wash-vs-detailing-north-shore", "salt-stains-car-carpet-north-shore"],
     faqs: [
       {
         q: "Can you get tree sap off without damaging the paint?",
@@ -264,6 +277,7 @@ export const towns: Town[] = [
   },
   {
     slug: "hamilton",
+    relatedPosts: ["dog-hair-out-of-car-north-shore", "car-wash-vs-detailing-north-shore"],
     faqs: [
       {
         q: "The truck has hay and dirt in the back. Is that a problem?",
@@ -299,6 +313,7 @@ export const towns: Town[] = [
   },
   {
     slug: "manchester-by-the-sea",
+    relatedPosts: ["dog-hair-out-of-car-north-shore", "salt-stains-car-carpet-north-shore"],
     faqs: [
       {
         q: "How much sand does Singing Beach actually put in a car?",
