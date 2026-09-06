@@ -5,6 +5,8 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { BeforeAfterSplit } from "@/components/BeforeAfterSplit";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Testimonials, type Testimonial } from "@/components/Testimonials";
+import { Faq } from "@/components/Faq";
+import { GENERAL_FAQS } from "@/lib/faqs";
 import { ArrowRight, InstagramGlyph } from "@/components/Icons";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { heroPhoto, beforeAfterPairs } from "@/lib/photos";
@@ -409,6 +411,11 @@ export default function Home() {
           <QuoteForm />
         </Reveal>
       </section>
+
+      <Faq
+        items={GENERAL_FAQS}
+        intro="The questions that decide whether people book, answered in the open rather than on the phone."
+      />
 
       {/* ── Area ─────────────────────────────────────────────────────── */}
       <section id="area" className="px-6 py-16 sm:px-10 lg:px-14 lg:py-20">

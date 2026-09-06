@@ -75,9 +75,47 @@ const FAQS: FaqItem[] = [
   },
 ];
 
+
+/**
+ * Service schema for this page.
+ *
+ * `provider` points at the business by @id rather than repeating it — the
+ * full object is emitted once in the root layout. areaServed lists the towns
+ * from site.ts, so this page and the town pages describe the same coverage.
+ */
+function ExteriorServiceSchema() {
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${site.url}/exterior-hand-wash#service`,
+    serviceType: "Exterior car hand washing",
+    name: "Exterior Hand Wash and Hand Wax",
+    description:
+      "Two-bucket exterior hand washing carried out at the customer's home across Beverly and the North Shore: wheels and wheel wells first, tar and bug removal, hand drying, tire dressing and an optional hand wax.",
+    provider: { "@id": `${site.url}/#business` },
+    areaServed: site.towns.map((town) => ({
+      "@type": "City",
+      name: town,
+      containedInPlace: { "@type": "State", name: site.regionName },
+    })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Exterior Hand Wash and Hand Wax",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Exterior hand wash" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Hand wax" } },
+      ],
+    },
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
+}
+
 export default function ExteriorHandWashPage() {
   return (
     <>
+      <ExteriorServiceSchema />
+
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="border-b border-rule px-6 pt-28 pb-16 sm:px-10 lg:px-14 lg:pt-32 lg:pb-20">
         <div className="flex max-w-[760px] flex-col gap-6 lg:gap-7">

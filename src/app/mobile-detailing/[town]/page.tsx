@@ -6,6 +6,8 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { ArrowRight } from "@/components/Icons";
 import { site, services, telHref, smsHref } from "@/lib/site";
 import { towns, townBySlug } from "@/lib/towns";
+import { Faq } from "@/components/Faq";
+import { TOWN_GENERAL_FAQS } from "@/lib/faqs";
 
 /** Every town is known at build time, so all of these are static pages. */
 export function generateStaticParams() {
@@ -55,13 +57,10 @@ function TownSchema({ townName }: { townName: string }) {
     serviceType: "Mobile auto detailing",
     name: `Mobile Auto Detailing in ${townName}, ${site.region}`,
     description: `Interior detailing and exterior hand washing carried out at the customer's home in ${townName}, ${site.regionName}.`,
-    provider: {
-      "@type": "AutoDetailing",
-      name: site.name,
-      url: site.url,
-      telephone: site.phone.e164,
-      ...(site.googleBusinessProfile ? { sameAs: site.googleBusinessProfile } : {}),
-    },
+    // By @id, not a second copy. Two AutoDetailing objects on one page with
+    // nothing linking them is ambiguous about whether it is one business or
+    // two; the full object is emitted once, in the root layout.
+    provider: { "@id": `${site.url}/#business` },
     areaServed: {
       "@type": "City",
       name: townName,
@@ -221,6 +220,12 @@ export default async function TownPage({ params }: { params: Promise<{ town: str
           </p>
         </Reveal>
       </section>
+
+      <Faq
+        items={[...town.faqs, ...TOWN_GENERAL_FAQS]}
+        heading={`Questions about ${town.name}`}
+        intro="Two specific to here, and the three people ask everywhere."
+      />
 
       {/* ── Quote ────────────────────────────────────────────────────── */}
       <section id="quote" className="grid gap-12 border-b border-rule px-6 py-20 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-14 lg:py-24">

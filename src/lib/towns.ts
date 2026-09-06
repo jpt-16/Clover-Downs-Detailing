@@ -39,11 +39,31 @@ export type Town = {
   conditions: { label: string; copy: string }[];
   /** Practical note on detailing there — space, water, parking. */
   logistics: string;
+  /**
+   * Two questions specific to this town, shown above the three general ones.
+   *
+   * Grounded in the conditions already listed above and in
+   * competitor-research.md §2.1, which is where beach sand, road salt, tree
+   * sap and highway film come from as recurring customer language. A town
+   * question that could be asked about anywhere is not a town question —
+   * leave it out rather than pad the set.
+   */
+  faqs: { q: string; a: string }[];
 };
 
 export const towns: Town[] = [
   {
     slug: "beverly",
+    faqs: [
+      {
+        q: "Can you get beach sand out of the carpet?",
+        a: "Yes, and it is one of the most common reasons people book here. Sand from Lynch Park and Dane Street sinks past the pile to the carpet backing, which is why vacuuming lifts some and leaves the rest — drive a mile and a fresh scatter appears. It needs the carpet flushed and pulled back out, which is the extraction step in a full interior detail.",
+      },
+      {
+        q: "I park on the street in town. Can you still do it?",
+        a: "Usually, yes. Street-parked cars in the denser parts of Beverly are normally workable — the limit is whether a tap and an outlet reach the car, not whether there is a driveway. Say where the car sits when you ask and you will get a straight answer before anything is booked.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Beverly, MA — done in your driveway. Winter salt off 128, harbor air, Lynch Park sand. Free quote by text, no deposit.",
     name: "Beverly",
@@ -69,6 +89,16 @@ export const towns: Town[] = [
   },
   {
     slug: "beverly-farms",
+    faqs: [
+      {
+        q: "Is a wax worth it out here?",
+        a: "More than almost anywhere else we cover. Beverly Farms gets salt in the air all year, not only when the roads are treated, and it settles on trim and glass and dulls the finish. A hand wax gives that something to sit on other than your clear coat, and makes the next wash pull it off far more easily.",
+      },
+      {
+        q: "Our driveway is gravel. Does that matter?",
+        a: "Not for the work itself. Gravel and shell drives throw dust up onto the lower panels between washes, which is worth knowing when you decide how often to book, but the job runs the same as it does on asphalt.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Beverly Farms, MA. Year-round salt air, sap under the trees, gravel drives. Free quote by text.",
     name: "Beverly Farms",
@@ -94,6 +124,16 @@ export const towns: Town[] = [
   },
   {
     slug: "danvers",
+    faqs: [
+      {
+        q: "What is the film that builds up from commuting on 1 and 128?",
+        a: "Road film — a mix of exhaust particulate, brake dust and whatever the road surface throws up, bonded on rather than sitting loose. A tunnel wash takes the top off it. It comes off properly with a two-bucket hand wash, wheels and wells done first with their own tools so the brake dust never reaches the paint.",
+      },
+      {
+        q: "When is bug season worth booking around?",
+        a: "Late spring through summer, and the sooner after a long drive the better. Bug residue is acidic and etches into clear coat if it bakes on, so it gets taken off chemically as its own step rather than scrubbed at once it has set.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Danvers, MA. Highway film off 1 and 128, bug season, winter spray. Free quote by text, no deposit to book.",
     name: "Danvers",
@@ -119,6 +159,16 @@ export const towns: Town[] = [
   },
   {
     slug: "salem",
+    faqs: [
+      {
+        q: "I do not have a driveway. Does that rule me out?",
+        a: "No. Plenty of Salem is street-parked and it is usually workable — what matters is whether a tap and an outlet reach the car, and that the car can sit for a few hours. Tell us where it parks when you ask for a quote so it is settled beforehand rather than on the doorstep.",
+      },
+      {
+        q: "Does street parking actually make the car dirtier?",
+        a: "Yes, in winter especially. Snow gets ploughed into the parking lane and sits against the car far longer than it would in a driveway, so salt spends more time against the paint and more of it comes inside on boots. It is worth washing more often through the winter here than a driveway car would need.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Salem, MA. Street-parked or driveway, we work around it. Free quote by text — tell us where the car sits.",
     name: "Salem",
@@ -144,6 +194,16 @@ export const towns: Town[] = [
   },
   {
     slug: "peabody",
+    faqs: [
+      {
+        q: "What does commuting do to the wheels?",
+        a: "Brake dust, mostly, and it is metallic — it embeds rather than settles. That is why wheels and wheel wells get done first with their own tools and never with anything that later touches paintwork. Commuter miles put more of it on than most people expect.",
+      },
+      {
+        q: "Is it worth washing in the middle of winter?",
+        a: "Yes. The January wash is worth more than the April one. Brine coats the lower panels, sills and wheel wells and holds moisture against bare metal at the seams — that becomes a bodyshop problem, which costs a great deal more than a wash. It needs a day above freezing and a working outdoor tap.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Peabody, MA. Commuter miles, brake dust, road salt. Done in your driveway — free quote by text, no deposit.",
     name: "Peabody",
@@ -169,6 +229,16 @@ export const towns: Town[] = [
   },
   {
     slug: "wenham",
+    faqs: [
+      {
+        q: "Can you get tree sap off without damaging the paint?",
+        a: "Yes. Sap is bonded to the clear coat rather than sitting on it, so it comes off chemically before anything is dragged across it. That order matters — wiping at sap smears it into a wider, thinner film and can put fine scratches in the paint.",
+      },
+      {
+        q: "The car is always dusty from the unpaved edges. Is that just a wash?",
+        a: "Usually. Dust off the unpaved shoulders is loose rather than bonded, so an exterior hand wash handles it. It is worth knowing that dust is abrasive when dry — dragging a cloth over a dusty panel is how swirl marks start, which is why a proper wash floods it off first.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Wenham, MA. Sap, pollen and dust off the unpaved edges. Done in your driveway — free quote by text.",
     name: "Wenham",
@@ -194,6 +264,16 @@ export const towns: Town[] = [
   },
   {
     slug: "hamilton",
+    faqs: [
+      {
+        q: "The truck has hay and dirt in the back. Is that a problem?",
+        a: "No. Hay, feed and dirt off the farm tracks are ordinary work here, and it costs no more than the quote for being what you already described. Send a photo of the worst of it and the price accounts for it up front.",
+      },
+      {
+        q: "Can you come to the barn instead of the house?",
+        a: "Yes, provided the same two things are there — an outdoor tap and a power outlet within reach of where the vehicle sits. Whichever is easier for you. Say which when you ask so the visit is planned around it.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Hamilton, MA. Dirt roads, hay, pet hair, sap. Detailed at the house or the barn — free quote by text.",
     name: "Hamilton",
@@ -219,6 +299,16 @@ export const towns: Town[] = [
   },
   {
     slug: "manchester-by-the-sea",
+    faqs: [
+      {
+        q: "How much sand does Singing Beach actually put in a car?",
+        a: "More than it looks, and it is fine enough to work into the seat mechanism and the belt reel as well as the carpet. Because it sits at the backing rather than the surface, a vacuum takes what is on top and the rest shakes back up as you drive. Extraction is what actually clears it.",
+      },
+      {
+        q: "Does living this close to the water change what the car needs?",
+        a: "Yes. Ocean salt is in the air year-round here, not just when the roads are treated, and harbor damp keeps interiors slower to dry out. In practice that means washing more often than an inland car, a wax before winter rather than after it, and dealing with a musty smell at the source rather than spraying over it.",
+      },
+    ],
     metaDescription:
       "Mobile detailing in Manchester-by-the-Sea. Singing Beach sand, ocean salt, harbor damp. Detailed in your driveway — free quote by text.",
     name: "Manchester-by-the-Sea",

@@ -77,9 +77,46 @@ const FAQS: FaqItem[] = [
   },
 ];
 
+
+/**
+ * Service schema for this page.
+ *
+ * `provider` points at the business by @id rather than repeating it — the
+ * full object is emitted once in the root layout. areaServed lists the towns
+ * from site.ts, so this page and the town pages describe the same coverage.
+ */
+function InteriorServiceSchema() {
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${site.url}/interior-car-detailing#service`,
+    serviceType: "Interior car detailing",
+    name: "Full Interior Car Detailing",
+    description:
+      "Full interior car detailing carried out at the customer's home across Beverly and the North Shore: vacuuming throughout, carpet and seat extraction, hard surfaces, glass, pet hair removal and odor treatment.",
+    provider: { "@id": `${site.url}/#business` },
+    areaServed: site.towns.map((town) => ({
+      "@type": "City",
+      name: town,
+      containedInPlace: { "@type": "State", name: site.regionName },
+    })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Full Interior Car Detailing",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Full interior detail" } },
+      ],
+    },
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
+}
+
 export default function InteriorDetailingPage() {
   return (
     <>
+      <InteriorServiceSchema />
+
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="border-b border-rule px-6 pt-28 pb-16 sm:px-10 lg:px-14 lg:pt-32 lg:pb-20">
         <div className="flex max-w-[760px] flex-col gap-6 lg:gap-7">

@@ -133,7 +133,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       </article>
 
-      <Faq items={post.faqs} heading="Questions people ask" />
+      {/* schema={false}: the post's FAQPage is already inside the @graph
+          above, alongside Article and BreadcrumbList. Two FAQPage blocks on
+          one page is worse than one. */}
+      <Faq items={post.faqs} heading="Questions people ask" schema={false} />
 
       {/* ── Next steps ───────────────────────────────────────────────── */}
       <section className="border-b border-rule px-6 py-20 sm:px-10 lg:px-14 lg:py-24">

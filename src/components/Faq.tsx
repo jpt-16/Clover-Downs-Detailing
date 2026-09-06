@@ -3,6 +3,27 @@ import { Reveal } from "./Reveal";
 export type FaqItem = { q: string; a: string };
 
 /**
+ * FAQPage markup for the same items the block renders.
+ *
+ * Emitted from inside this component on purpose. Google treats markup that
+ * says something the page does not as a reason to distrust the page, and the
+ * usual way that happens is a schema block maintained separately from the
+ * copy. Here there is one array and no second place to update.
+ */
+function FaqSchema({ items }: { items: FaqItem[] }) {
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
+}
+
+/**
  * Question-and-answer block.
  *
  * Answers render open rather than behind an accordion: there are only ever a
@@ -18,10 +39,13 @@ export function Faq({
   items,
   heading = "Questions people ask",
   intro,
+  schema = true,
 }: {
   items: FaqItem[];
   heading?: string;
   intro?: string;
+  /** Set false where the page already emits FAQPage in its own @graph. */
+  schema?: boolean;
 }) {
   if (items.length === 0) return null;
 
@@ -30,6 +54,7 @@ export function Faq({
       id="faq"
       className="grid gap-12 border-b border-rule px-6 py-20 sm:px-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 lg:px-14 lg:py-24"
     >
+      {schema && <FaqSchema items={items} />}
       <Reveal className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
         <span aria-hidden className="block h-14 w-px bg-leaf" />
         <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.05] font-light tracking-[-0.03em]">{heading}</h2>
