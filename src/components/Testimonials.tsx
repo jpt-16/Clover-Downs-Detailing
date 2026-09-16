@@ -35,7 +35,6 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   if (items.length === 0) return null;
 
   const many = items.length > 1;
-  const current = items[index];
   const step = (delta: number) => setIndex((n) => (n + delta + items.length) % items.length);
 
   return (
@@ -63,40 +62,54 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
 
         {/* Announces the new quote when the arrows change it, rather than
           leaving a screen reader on a silently swapped page. */}
-        <div aria-live="polite">
-          <blockquote
-            key={index}
-            className="quote-in m-0 flex flex-col gap-6 border border-rule-strong bg-ink-raised px-7 py-8 sm:px-10 sm:py-10"
-          >
-            {current.rating !== undefined && (
-              <span
-                className="flex gap-1.5 text-leaf"
-                role="img"
-                aria-label={`${current.rating} out of ${MAX_RATING} stars`}
+        {/* All reviews are rendered, stacked in one grid cell, with only the
+            current one visible. The container then sizes to the tallest quote,
+            so stepping from a long review to a short one does not collapse the
+            card and yank the page up under the button just clicked. A fixed
+            min-height would do the same until someone leaves a longer review
+            than it was tuned for. */}
+        <div aria-live="polite" className="grid">
+          {items.map((item, i) => {
+            const active = i === index;
+            return (
+              <blockquote
+                key={`${item.who}-${i}`}
+                aria-hidden={!active}
+                className={`col-start-1 row-start-1 m-0 flex flex-col gap-6 border border-rule-strong bg-ink-raised px-7 py-8 sm:px-10 sm:py-10 ${
+                  active ? "quote-in" : "invisible"
+                }`}
               >
-                {Array.from({ length: MAX_RATING }, (_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-[1.125rem] w-[1.125rem] ${i < current.rating! ? "" : "text-rule-strong"}`}
-                  />
-                ))}
-              </span>
-            )}
-            <p className="max-w-[46ch] text-[1.25rem] leading-[1.45] font-light text-bone sm:text-[1.4375rem]">
-              &ldquo;{current.quote}&rdquo;
-            </p>
-            <footer className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule pt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">
-              <span className="text-leaf">{current.who}</span>
-              {current.source && (
-                <>
-                  <span aria-hidden className="text-rule-strong">
-                    /
+                {item.rating !== undefined && (
+                  <span
+                    className="flex gap-1.5 text-leaf"
+                    role="img"
+                    aria-label={`${item.rating} out of ${MAX_RATING} stars`}
+                  >
+                    {Array.from({ length: MAX_RATING }, (_, starIndex) => (
+                      <Star
+                        key={starIndex}
+                        className={`h-[1.125rem] w-[1.125rem] ${starIndex < item.rating! ? "" : "text-rule-strong"}`}
+                      />
+                    ))}
                   </span>
-                  <span>{current.source} review</span>
-                </>
-              )}
-            </footer>
-          </blockquote>
+                )}
+                <p className="max-w-[46ch] text-[1.25rem] leading-[1.45] font-light text-bone sm:text-[1.4375rem]">
+                  &ldquo;{item.quote}&rdquo;
+                </p>
+                <footer className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-rule pt-5 text-[0.6875rem] tracking-[0.2em] text-dim uppercase">
+                  <span className="text-leaf">{item.who}</span>
+                  {item.source && (
+                    <>
+                      <span aria-hidden className="text-rule-strong">
+                        /
+                      </span>
+                      <span>{item.source} review</span>
+                    </>
+                  )}
+                </footer>
+              </blockquote>
+            );
+          })}
         </div>
       </div>
     </Reveal>

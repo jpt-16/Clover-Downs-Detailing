@@ -76,6 +76,13 @@ const GROUNDWORK = [
  */
 const TESTIMONIALS: Testimonial[] = [
   {
+    quote:
+      "Had a great experience with Clover Downs. My car came out looking really good, and you can tell they actually take their time and pay attention to the details instead of rushing through it. The customer service was also great\u2014really friendly and professional. Definitely recommend them if you\u2019re looking to get your car detailed!",
+    who: "Bryan",
+    rating: 5,
+    source: "Google",
+  },
+  {
     quote: "Worked very hard and did a great job and was efficient worth the money",
     who: "Nathan",
     rating: 5,
