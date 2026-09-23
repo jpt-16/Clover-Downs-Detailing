@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { smsHref } from "@/lib/site";
 
@@ -9,9 +9,13 @@ import { smsHref } from "@/lib/site";
  *
  * Two rules keep it from being an annoyance rather than a conversion aid:
  *
- * 1. It stays out of the way until the hero has scrolled by. The hero already
- *    carries the same two calls to action, so showing it there would just
- *    cover the photo with a duplicate.
+ * 1. On a page that carries its own call to action above the fold — the
+ *    homepage, the town pages, the service pages — it stays out of the way
+ *    until that has scrolled by, rather than covering it with a duplicate.
+ *    On a page that does not, a blog post being the case that prompted this,
+ *    there is nothing to duplicate and nothing to cover, so it shows from the
+ *    start. Measured rather than hardcoded by route, so a new page type gets
+ *    the right behaviour without anyone remembering to update this.
  * 2. It hides again once the quote form is on screen. At that point the bar
  *    would be pointing at something the visitor is already looking at, while
  *    physically covering the fields they are trying to fill in — the exact
@@ -21,11 +25,28 @@ import { smsHref } from "@/lib/site";
  * bar never sits on top of footer content at the bottom of the page.
  */
 export function MobileBookBar() {
-  const [pastHero, setPastHero] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const [atForm, setAtForm] = useState(false);
+  // A ref, not state: it is read by the scroll handler and never needs to
+  // cause a render of its own. Starts true so the bar cannot flash over a
+  // hero before the first measurement.
+  const hasOwnCta = useRef(true);
 
   useEffect(() => {
-    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.6);
+    // Scoped to <main>: excludes this bar's own link, and the header's, which
+    // on small screens sits inside the collapsed menu and so has no layout
+    // box to measure.
+    const measure = () => {
+      const ctas = Array.from(document.querySelectorAll<HTMLElement>('main a[href$="#quote"]'));
+      hasOwnCta.current = ctas.some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.top < window.innerHeight * 0.9;
+      });
+    };
+
+    const onScroll = () => setRevealed(!hasOwnCta.current || window.scrollY > window.innerHeight * 0.6);
+
+    measure();
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -42,7 +63,7 @@ export function MobileBookBar() {
     return () => io.disconnect();
   }, []);
 
-  const shown = pastHero && !atForm;
+  const shown = revealed && !atForm;
 
   return (
     <nav
